@@ -8,6 +8,7 @@
     "react-test-renderer": "16.0.0-alpha.6"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "license": "ISC",
   "scripts": {
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
