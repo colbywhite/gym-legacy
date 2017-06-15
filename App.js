@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { StyleSheet, Text, View, FlatList} from 'react-native';
 import { List, ListItem, Grid, Col, Row } from 'react-native-elements'
+import Expo from 'expo'
 
 const programs = [
   { name:"StrongLift 5x5", type:"MWF", duration:"Optionally Indefinite" },
@@ -22,7 +23,7 @@ class Program extends Component {
 export default class App extends Component {
   render() {
     return (
-        <List>
+        <List style={{marginTop: Expo.Constants.statusBarHeight}}>
           {programs.map((program, i) => (
               <Program data={program} key={i}/>
           ))}
