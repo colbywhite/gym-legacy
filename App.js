@@ -1,23 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component, PureComponent } from 'react';
+import { StyleSheet, Text, View, FlatList} from 'react-native';
+import { List, ListItem, Grid, Col, Row } from 'react-native-elements'
 
-export default class App extends React.Component {
+const programs = [
+  { name:"StrongLift 5x5", type:"MWF", duration:"Optionally Indefinite" },
+  { name:"Candito Squat", type:"5-2", duration:"9 wks" }
+]
+
+class Program extends Component {
   render() {
+    const data = this.props.data
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+      <ListItem
+        title={data.name}
+        hideChevron={true}
+        />
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default class App extends Component {
+  render() {
+    return (
+        <List>
+          {programs.map((program, i) => (
+              <Program data={program} key={i}/>
+          ))}
+        </List>
+    );
+  }
+}
