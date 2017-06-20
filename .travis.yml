@@ -11,7 +11,7 @@ install:
 - npm install -g exp
 - npm install
 script:
-- npm test && npm run deploy
+- npm test && exp login -p "${EXP_KEY}" -u colby-white && npm run deploy
 cache:
   directories:
     - node_modules
