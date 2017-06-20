@@ -15,7 +15,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js",
-    "testWatch": "node node_modules/jest/bin/jest.js --watch"
+    "testWatch": "node node_modules/jest/bin/jest.js --watch",
+    "deploy": "bash deploy.sh"
   },
   "jest": {
     "preset": "jest-expo"
