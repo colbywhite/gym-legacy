@@ -3,8 +3,7 @@ import { List, ListItem } from 'react-native-elements'
 
 class Program extends Component {
   render() {
-    const data = this.props.data
-    const navigate = this.props.navigate
+    const {data, navigate} = this.props
     return (
       <ListItem
         title={data.name}
