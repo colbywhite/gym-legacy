@@ -28,6 +28,6 @@
     "react-native": "^0.44.0",
     "react-native-elements": "^0.12.2",
     "react-navigation": "^1.0.0-beta.11",
-    "weight-program-schema": "0.0.3"
+    "weight-program-schema": "0.1.0"
   }
 }
