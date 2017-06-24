@@ -1,40 +1,8 @@
 import React, { Component } from 'react';
-import { List, ListItem } from 'react-native-elements'
 import SwipeALot from 'react-native-swipe-a-lot'
+import WeekSchedule from '../components/WeekSchedule'
 import { schedule_calculator } from 'weight-program-schema'
-
-// TODO: * calculate a schedule with rest days included
-// * then make each day expandable to see the workout for that day
-class WeekSchedule extends Component {
-  render() {
-    const workouts = this.props.workouts
-    return (
-      <List>
-        {workouts.map((day, i) => {
-          return (<ListItem
-            title={day === 'rest' ? day : 'lift'}
-            key={i}
-            hideChevron={true}
-            />
-          )
-        })}
-      </List>
-    )
-  }
-}
-
-const spliceIntoChunks = (arr, chunkLength) => {
-  var results = [],
-    numChunks = Math.ceil(arr.length / chunkLength)
-    i = 0,
-    j = chunkLength - 1;
-  while(results.length < numChunks) {
-    results.push(arr.slice(i, j+1))
-    i += chunkLength
-    j += chunkLength
-  }
-  return results;
-}
+import { spliceIntoChunks } from '../lib/utils'
 
 export default class ProgramDetail extends Component {
   static navigationOptions = ({ navigation }) => ({

@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import { List, ListItem } from 'react-native-elements'
-
-class Program extends Component {
-  render() {
-    const {data, navigate} = this.props
-    return (
-      <ListItem
-        title={data.name}
-        subtitle={`${data.schedule.type} program`}
-        onPress={() => navigate('ProgramDetail', { program: data })}
-        />
-    )
-  }
-}
+import Program from '../components/Program'
 
 export default class ProgramList extends Component {
   static navigationOptions = {
