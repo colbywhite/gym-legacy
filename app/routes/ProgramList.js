@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, ListItem } from 'react-native-elements'
+import { Container, Content, Card } from 'native-base';
 import Program from '../components/Program'
 
 export default class ProgramList extends Component {
@@ -7,12 +7,20 @@ export default class ProgramList extends Component {
     title: 'Weight Programs'
   };
   render() {
-    const { params } = this.props.navigation.state;
+    const { programs } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
-    return <List>
-      {params.programs.map((program, i) => (
-          <Program data={program} key={i} navigate={navigate}/>
-      ))}
-    </List>
+    return (
+      <Container>
+        <Content>
+          {programs.map((program, i) => {
+            return (
+            <Card key={i}>
+              <Program data={program} navigate={navigate} />
+            </Card>
+            )
+          })}
+        </Content>
+      </Container>
+    )
   }
 }
