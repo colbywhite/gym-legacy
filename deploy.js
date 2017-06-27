@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const cpp = require('child_process')
   exp = cpp.spawn('exp',['build:android', '--non-interactive']);
 
