@@ -27,6 +27,7 @@ export default class WeekSchedule extends Component {
             <View key={i}>
               <ListItem
                 title={isRestDay ? day : 'lift'}
+                leftIcon={{name:isRestDay ? 'battery-charging-full' : 'fitness-center'}}
                 rightIcon={{name:'expand-more'}}
                 hideChevron={isRestDay}
                 onPress={this._toggleDaysExpansion.bind(this, i)}
