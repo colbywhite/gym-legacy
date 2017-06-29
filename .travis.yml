@@ -5,7 +5,8 @@ before_deploy:
 - npm install -g exp && exp login -p "${EXP_KEY}" -u colby-white
 deploy:
   provider: script
-  script: deploy.js
+  script: ./deploy.js
+  skip_cleanup: true
   on:
     branch: master
 cache:
