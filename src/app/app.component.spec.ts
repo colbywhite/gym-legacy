@@ -28,6 +28,6 @@ describe('AppComponent', () => {
   it('should render title in a h1 tag', async(() => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(app.querySelector('h1').textContent).toContain('Welcome to app!!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!!');
   }));
 });
