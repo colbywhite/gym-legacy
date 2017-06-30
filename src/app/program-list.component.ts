@@ -5,4 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './program-list.component.html',
   styleUrls: ['./program-list.component.css']
 })
-export class ProgramListComponent { }
+export class ProgramListComponent {
+  public programs: Program[] = [
+    {name: 'hello'},  {name: 'world!'}
+  ]
+}
+
+interface Program {
+  name: string
+}
