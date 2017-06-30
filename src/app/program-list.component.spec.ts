@@ -18,15 +18,15 @@ describe('ProgramListComponent', () => {
       });
   }));
 
-  it('should create the program list', async(() => {
+  it('should create the program list', () => {
     expect(programList).toBeTruthy();
-  }));
+  });
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in a h1 tag', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Programs');
-  }));
+  });
 
   it('should render default programs from WPS', () => {
     fixture.detectChanges();
