@@ -1,17 +1,6 @@
 language: node_js
 node_js:
   - '6.10'
-before_deploy:
-- npm install -g exp && exp login -p "${EXP_KEY}" -u colby-white
-deploy:
-  provider: script
-  script: ./deploy.js
-  skip_cleanup: true
-  on:
-    branch: master
 cache:
   directories:
     - node_modules
-env:
-  global:
-    secure: p7QR7qYV8SF7VQBKb2peaWwcypa/J0ZwCon5IJTf+HbSL/zpi+Y8FRd8Ls48D/ZCNHberSeuum1N0oVYjMJOxiQhyS60GG9/SXlfx1dbe+xX/fCLFzVoecWBY+aNBQNFNlpE1Zq7YS0l8Aj3EtQKSDDoM3ZXhuW/CgqQvmvAHZ0svxnF304Y+YKthSn0Ts8Cr1cNlpSOmm6zqE/xIVigb237W0j1H4ziirKVsT3OqZLr4FG6Zz/8Hs81lIlPrWMUK/9yD6vZ52rp0FlN+rWWUyhLwBtUzmC3KbMoTCMEE4EhkQvkUHT4nJaTY0msM5XaRhXOfc36ZLqByOcK918oQCD72Ql+lR1mmOfiMdfy9M4jxUrdEb/pXbwhe6yjbTAEoltgh1eHrQ4uayXtEWazWLswViL/rPWlmr/V9RGqWXpsm2z6FKR179tt0UUr1fns8lFOS0z5gYnhN4JzQ8G0krtozcf1PBv4pdH3YfU4YrymfPLF8J4MUeqdNu8aHmkVrC7JMoc4u5vrCNcbA9d3Y6TnxF+Z+BGSTO/5siUeJDOaZ0gZtqXvyxSBXTx8HxA4LD560j/3ZxT2SpHxzb+u99McFVJDRt3jTfOORqCRqaAnncOacs35WqqKYBD2HNUtYJzDU+Ihp5KRxGNOdJlujkpjXLaVJKDVRDTP46KMyi0=

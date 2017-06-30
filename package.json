@@ -1,34 +1,9 @@
 {
   "name": "gym-legacy",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "devDependencies": {
-    "react-native-scripts": "0.0.31",
-    "jest-expo": "~1.0.1",
-    "react-test-renderer": "16.0.0-alpha.6"
-  },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "license": "ISC",
-  "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js",
-    "testWatch": "node node_modules/jest/bin/jest.js --watch",
-    "deploy": "node deploy.js",
-    "build:status": "exp build:status"
-  },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
-    "expo": "^17.0.0",
-    "react": "16.0.0-alpha.6",
-    "react-native": "^0.44.0",
-    "react-native-elements": "^0.12.2",
-    "react-native-swipe-a-lot": "^0.2.1",
-    "react-navigation": "^1.0.0-beta.11",
     "weight-program-schema": "^0.2.2"
   }
 }
