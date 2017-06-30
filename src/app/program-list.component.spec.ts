@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
-
 import { ProgramListComponent } from './program-list.component';
+import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
+const firstProgram: any = _stronglifts
 
 describe('ProgramListComponent', () => {
   let fixture;
@@ -26,4 +27,10 @@ describe('ProgramListComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Programs');
   }));
+
+  it('should render default programs from WPS', () => {
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('ul li').textContent.trim()).toBe(firstProgram.name);
+  });
 });
