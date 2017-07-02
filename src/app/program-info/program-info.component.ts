@@ -7,8 +7,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./program-info.component.css']
 })
 export class ProgramInfoComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
   public program: Program
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap
