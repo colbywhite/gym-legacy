@@ -8,6 +8,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ProgramInfoComponent implements OnInit {
   public program: Program
+  public days: number[] = [0,1,2,3,4,5,6]
 
   constructor(private route: ActivatedRoute) {}
 
