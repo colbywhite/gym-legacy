@@ -15,6 +15,6 @@ export class ProgramLibraryComponent {
   constructor(private router: Router) { }
 
   public showProgram(program: any) {
-    this.router.navigate(['/program'])
+    this.router.navigate(['/program', program])
   }
 }
