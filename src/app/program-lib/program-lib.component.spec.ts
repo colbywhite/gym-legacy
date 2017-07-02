@@ -42,7 +42,7 @@ describe('ProgramLibraryComponent', () => {
     })
 
     it('should display default programs from WPS', () => {
-      expect(element.querySelector('div button').textContent.trim()).toBe(firstProgram.name);
+      expect(element.querySelector('div.list-group-item').textContent.trim()).toBe(firstProgram.name);
     })
   })
 })
