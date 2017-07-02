@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "buildProd": "ng build -prod -aot",
-    "test": "ng test --single-run -cc",
+    "test": "ng test --reporters spec --progress false --single-run -cc",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -45,6 +45,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-spec-reporter": "0.0.31",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
