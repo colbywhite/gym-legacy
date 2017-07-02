@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ProgramListComponent } from './program-list.component';
+import { ProgramLibraryComponent } from './program-lib.component';
 
 @NgModule({
-  declarations: [ProgramListComponent],
+  declarations: [ProgramLibraryComponent],
   imports: [BrowserModule],
   providers: [],
-  bootstrap: [ProgramListComponent]
+  bootstrap: [ProgramLibraryComponent]
 })
 export class AppModule { }

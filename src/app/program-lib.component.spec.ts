@@ -1,19 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
-import { ProgramListComponent } from './program-list.component';
+import { ProgramLibraryComponent } from './program-lib.component';
 import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
 const firstProgram: any = _stronglifts
 
-describe('ProgramListComponent', () => {
+describe('ProgramLibraryComponent', () => {
   let fixture;
   let programList;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgramListComponent]
+      declarations: [ProgramLibraryComponent]
     })
       .compileComponents()
       .then(() => {
-        fixture = TestBed.createComponent(ProgramListComponent);
+        fixture = TestBed.createComponent(ProgramLibraryComponent);
         programList = fixture.debugElement.componentInstance;
       });
   }));

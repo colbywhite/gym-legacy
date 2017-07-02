@@ -4,10 +4,12 @@ import * as stronglifts from 'weight-program-schema/lib/stronglifts.json'
 import * as candito_squat from 'weight-program-schema/lib/candito_squat.json'
 
 @Component({
-  selector: 'gl-program-list',
-  templateUrl: './program-list.component.html',
-  styleUrls: ['./program-list.component.css']
+  selector: 'gl-program-lib',
+  templateUrl: './program-lib.component.html',
+  styleUrls: ['./program-lib.component.css']
 })
-export class ProgramListComponent {
+export class ProgramLibraryComponent {
   public programs: any[] = [stronglifts, candito_squat]
+
+
 }
