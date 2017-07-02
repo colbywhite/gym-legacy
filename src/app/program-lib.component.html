@@ -1,6 +1,10 @@
 <h1>Program Library</h1>
 <div class="list-group">
-  <button *ngFor="let program of programs" class="list-group-item">
+  <button
+    class="list-group-item"
+    *ngFor="let program of programs"
+    (click)="showProgram(program)"
+    >
     <span>{{program.name}}</span>
     <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
   </button>

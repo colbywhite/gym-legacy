@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { ProgramLibraryComponent } from './program-lib.component';
 import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
 const firstProgram: any = _stronglifts
@@ -6,10 +7,16 @@ const firstProgram: any = _stronglifts
 describe('ProgramLibraryComponent', () => {
   let fixture;
   let programList;
+  const mockRouter = {
+    navigate: (route) => {}
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgramLibraryComponent]
+      declarations: [ProgramLibraryComponent],
+      providers: [
+        {provide: Router, useValue: mockRouter}
+      ]
     })
       .compileComponents()
       .then(() => {
