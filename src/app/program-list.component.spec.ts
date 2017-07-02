@@ -25,12 +25,12 @@ describe('ProgramListComponent', () => {
   it('should render title in a h1 tag', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Programs');
+    expect(compiled.querySelector('h1').textContent).toBe('Program Library');
   });
 
   it('should render default programs from WPS', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('ul li').textContent.trim()).toBe(firstProgram.name);
+    expect(compiled.querySelector('div button').textContent.trim()).toBe(firstProgram.name);
   });
 });
