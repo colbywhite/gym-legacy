@@ -5,8 +5,10 @@ import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
 const firstProgram: any = _stronglifts
 
 describe('ProgramLibraryComponent', () => {
-  let fixture;
-  let programList;
+  let fixture
+  let programList
+  let element
+
   const mockRouter = {
     navigate: (route) => {}
   }
@@ -22,22 +24,25 @@ describe('ProgramLibraryComponent', () => {
       .then(() => {
         fixture = TestBed.createComponent(ProgramLibraryComponent);
         programList = fixture.debugElement.componentInstance;
-      });
-  }));
+        element = fixture.debugElement.nativeElement
+      })
+  }))
 
-  it('should create the program list', () => {
+  it('should compile', () => {
     expect(programList).toBeTruthy();
-  });
+  })
 
-  it('should render title in a h1 tag', () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toBe('Program Library');
-  });
+  describe('when rendered', () => {
+    beforeEach(() => {
+      fixture.detectChanges()
+    })
 
-  it('should render default programs from WPS', () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('div button').textContent.trim()).toBe(firstProgram.name);
-  });
-});
+    it('should display title in a h1 tag', () => {
+      expect(element.querySelector('h1').textContent).toBe('Program Library');
+    })
+
+    it('should display default programs from WPS', () => {
+      expect(element.querySelector('div button').textContent.trim()).toBe(firstProgram.name);
+    })
+  })
+})

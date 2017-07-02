@@ -12,6 +12,7 @@ const stronglifts: any = _stronglifts,
 describe('ProgramInfoComponent', () => {
   let fixture
   let info
+  let element
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,16 +26,22 @@ describe('ProgramInfoComponent', () => {
         fixture = TestBed.createComponent(ProgramInfoComponent);
         info = fixture.debugElement.componentInstance
         info.ngOnInit()
+        element = fixture.debugElement.nativeElement
       })
   }))
 
-  it('should create the program info', () => {
+  it('should compile', () => {
     expect(info).toBeTruthy();
   });
 
-  it('should display name from route', () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h3').textContent).toBe(stronglifts.name);
-  });
+  describe('when rendered', () => {
+    beforeEach(() => {
+      fixture.detectChanges()
+    })
+
+    it('should display name from route', () => {
+      fixture.detectChanges();
+      expect(element.querySelector('h3').textContent).toBe(stronglifts.name);
+    });
+  })
 })
