@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { ProgramLibraryComponent } from './program-lib.component';
-import { ProgramInfoComponent } from './program-info.component';
+import { ProgramLibraryComponent } from './program-lib/program-lib.component';
+import { ProgramInfoComponent } from './program-info/program-info.component';
 
 @NgModule({
   declarations: [AppComponent, ProgramLibraryComponent, ProgramInfoComponent],

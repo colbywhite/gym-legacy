@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProgramLibraryComponent } from './program-lib.component';
-import { ProgramInfoComponent } from './program-info.component';
+import { ProgramLibraryComponent } from './program-lib/program-lib.component';
+import { ProgramInfoComponent } from './program-info/program-info.component';
 
 const appRoutes: Routes = [
   {path: 'program', component: ProgramInfoComponent},
