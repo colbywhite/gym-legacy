@@ -1,8 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { ProgramInfoComponent } from './program-info.component';
+import { APP_BASE_HREF } from '@angular/common';
 import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { ProgramInfoComponent } from './program-info.component';
+import { AppModule } from '../app.module';
 
 const stronglifts: any = _stronglifts,
   strongliftsRoute = {
@@ -16,9 +19,10 @@ describe('ProgramInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgramInfoComponent],
+      imports: [AppModule],
       providers: [
-        {provide: ActivatedRoute, useValue: strongliftsRoute}
+        {provide: ActivatedRoute, useValue: strongliftsRoute},
+        {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
       .compileComponents()
