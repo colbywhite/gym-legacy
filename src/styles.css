@@ -10,3 +10,8 @@ h1, h2, h3, h4, h5, h6 {
 gl-program-info .carousel-indicators {
   bottom: -30px;
 }
+
+.fa-dumbbell:before {
+  content: url('assets/glyphicons-357-dumbbell.png');
+  margin-right: 5px;
+}
