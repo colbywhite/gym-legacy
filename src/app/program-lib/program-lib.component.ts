@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-// TODO I'd much rather to import { programs } from 'weight-program-schema'
-import * as stronglifts from 'weight-program-schema/lib/stronglifts.json'
-import * as candito_squat from 'weight-program-schema/lib/candito_squat.json'
+import { ProgramService } from '../shared/program.service'
 
 @Component({
   selector: 'gl-program-lib',
@@ -10,9 +8,11 @@ import * as candito_squat from 'weight-program-schema/lib/candito_squat.json'
   styleUrls: ['./program-lib.component.css']
 })
 export class ProgramLibraryComponent {
-  public programs: any[] = [stronglifts, candito_squat]
+  public programs: any[]
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private programService: ProgramService) {
+    this.programs = programService.standards
+  }
 
   public showProgram(program: any) {
     this.router.navigate(['/program', program])

@@ -7,11 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ProgramLibraryComponent } from './program-lib/program-lib.component';
 import { ProgramInfoComponent } from './program-info/program-info.component';
+import { ProgramService } from './shared/program.service';
 
 @NgModule({
   declarations: [AppComponent, ProgramLibraryComponent, ProgramInfoComponent],
   imports: [BrowserModule, BrowserAnimationsModule, NgbModule.forRoot(), AppRoutingModule],
-  providers: [],
+  providers: [ProgramService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
