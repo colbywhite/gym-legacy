@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ProgramLibraryComponent } from './program-lib.component';
 import { ProgramService } from '../shared/program.service'
-import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
+import * as _stronglifts from '../shared/programs/stronglifts.json'
 const firstProgram: any = _stronglifts
 
 describe('ProgramLibraryComponent', () => {

@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-import * as _stronglifts from 'weight-program-schema/lib/stronglifts.json'
+import * as _stronglifts from '../shared/programs/stronglifts.json'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
