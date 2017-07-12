@@ -4,7 +4,7 @@ import { ProgramLibraryComponent } from './program-lib/program-lib.component';
 import { ProgramInfoComponent } from './program-info/program-info.component';
 
 const appRoutes: Routes = [
-  {path: 'program', component: ProgramInfoComponent},
+  {path: 'program/:name', component: ProgramInfoComponent},
   {path: 'lib', component: ProgramLibraryComponent},
   { path: '', redirectTo: 'lib', pathMatch: 'full' }
 ]

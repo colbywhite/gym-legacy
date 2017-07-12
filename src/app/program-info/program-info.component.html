@@ -1,10 +1,10 @@
 <h3>{{program.name}}</h3>
 <ngb-carousel class="" [interval]="false">
-  <ng-template ngbSlide *ngFor="let i of days">
+  <ng-template ngbSlide *ngFor="let i of schedule">
       <div class="list-group">
-        <div class="list-group-item" *ngFor="let j of days">
+        <div class="list-group-item" *ngFor="let j of i">
           <i class="fa fa-dumbbell" aria-hidden="true"></i>
-          {{i}}-{{j}}
+          {{j}}
         </div>
       </div>
   </ng-template>

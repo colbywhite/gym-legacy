@@ -7,8 +7,11 @@ import * as candito_squat from './programs/candito_squat.json'
 
 @Injectable()
 export class ProgramService {
-
   public get standards() : any[] {
     return [stronglifts, candito_squat]
+  }
+
+  public getProgram(name:string) {
+    return this.standards.find((p) => p.name==name)
   }
 }

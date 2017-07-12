@@ -8,15 +8,15 @@ import 'rxjs/add/observable/of';
 import { ProgramInfoComponent } from './program-info.component';
 import { AppModule } from '../app.module';
 
-const stronglifts: any = _stronglifts,
-  strongliftsRoute = {
-    paramMap: Observable.of(convertToParamMap({name: stronglifts.name}))
-  }
+const stronglifts: any = _stronglifts
+const strongliftsRoute = {
+  paramMap: Observable.of(convertToParamMap({name: stronglifts.name}))
+}
 
 describe('ProgramInfoComponent', () => {
   let fixture
   let info
-  let element
+  let element: Element
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -45,8 +45,11 @@ describe('ProgramInfoComponent', () => {
     })
 
     it('should display name from route', () => {
-      fixture.detectChanges();
       expect(element.querySelector('h3').textContent).toBe(stronglifts.name);
+    });
+
+    it('should display six weeks', () => {
+      expect(element.querySelectorAll('div.list-group').length).toBe(6);
     });
   })
 })
