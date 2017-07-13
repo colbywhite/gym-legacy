@@ -11,8 +11,7 @@ import {schedule_calculator} from 'weight-program-schema'
 })
 export class ProgramInfoComponent implements OnInit {
   public program: any
-  public schedule: any[][]
-  public days: number[] = [0,1,2,3,4,5,6,7,8,9]
+  public schedule: Day[][]
 
   constructor(private route: ActivatedRoute, private programService: ProgramService) {}
 
@@ -20,7 +19,23 @@ export class ProgramInfoComponent implements OnInit {
     this.route.paramMap
       .subscribe((params: ParamMap) => {
         this.program = this.programService.getProgram(params.get('name'))
-        this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7)
+        this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
       })
   }
 }
+
+interface Load {
+  type: string
+  increment: number
+  from: string
+}
+interface Exercise {
+  name: string
+  sets: number
+  reps: number
+  load: Load
+}
+interface WorkoutDay {
+  exercises: Exercise[]
+}
+type Day = string | WorkoutDay
