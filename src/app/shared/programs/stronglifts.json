@@ -4,6 +4,7 @@
   "unit": "pounds",
   "workouts": {
     "A": {
+      "name": "A Day",
       "exercises": [
         {
           "name": "Squat",
@@ -41,6 +42,7 @@
       ]
     },
     "B": {
+      "name": "B Day",
       "exercises": [
       {
         "name": "Squat",

@@ -3,8 +3,13 @@
   <ng-template ngbSlide *ngFor="let i of schedule">
       <div class="list-group">
         <div class="list-group-item" *ngFor="let j of i">
-          <i class="fa fa-dumbbell" aria-hidden="true"></i>
-          {{j}}
+          <div *ngIf="j.rest">
+            Rest
+          </div>
+          <div *ngIf="!j.rest">
+            <i class="fa fa-dumbbell" aria-hidden="true"></i>
+            {{j.name}}
+          </div>
         </div>
       </div>
   </ng-template>
