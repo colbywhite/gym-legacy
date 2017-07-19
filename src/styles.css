@@ -15,3 +15,8 @@ gl-program-info .carousel-indicators {
   content: url('assets/glyphicons-357-dumbbell.png');
   margin-right: 5px;
 }
+
+.fa-dream:before {
+  content: url('assets/dream.png');
+  margin-right: 5px;
+}
