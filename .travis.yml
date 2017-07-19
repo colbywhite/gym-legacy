@@ -1,14 +1,29 @@
 language: node_js
 dist: trusty
 node_js:
-  - '6.10'
+- '6.10'
 addons:
   chrome: stable
 cache:
   directories:
-    - node_modules
+  - node_modules
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+  &
+before_deploy:
+- npm run buildProd
+deploy:
+  provider: s3
+  bucket: gym-legacy
+  skip_cleanup: true
+  region: us-east-1
+  local_dir: dist
+  on:
+    branch: master
+  secret_access_key:
+    secure: HDNu+gyxullTe1llUfOonlrBRN0GATdZytFv+0ARyFiCriaojik6s/TvSDKSzkyQqF0OifiqmPmIjK88RRxlT8fc0JhGYGplS8W4RjrQw4yPJnIWoE2qBD8prEFvkGtOeI6FMRf8y2ANUZ5/WFOnk39x7eaolyR/cZ9VEOOv6k510f0BTeXXtmuMLp6m38WxyjP/TUoiNTt1IkZZrCL/tvG60rt1Jmi4wdl4fXAW5J8+2dAjK1OmeAfAbuMqSD8nPq68p8X0G1UXN7zkO9tG5oFP7ACX5k+MYsGqu3PGm8TUd47iQQr1c7dD9V6O/1vgQXK253Kf152EHpmOkYWuwXb3Pm/31AZppwHPT16ivydep4KkEQhahIYcbnShztGUZX14H6QF1tjLO+zvhBVObr6Gf1WN1WnMQ6PBrHXJK1U0k6gnig83i+FOIsOUlEOGESf4/f0GtrjDdIDnvm/yv6nPxKPBUCFnsMdJ2DzfqaBf8KoIKlhUtvXQUxpIBupjR0lqOjjRtcW20liN9rfonExWBzwn9NLViVUyRqvINR86BaWlEumaddzuJarZeO1hz5sn8RagRW5gmETW9xk9q+VRpXaPo2kzyBO277duINsuaCff7ttEWMXn2wWxjHusxlBn0S3MH4UKlO5dTpemvoKmhPybO/M481tg+M2ZGvk=
+  access_key_id:
+    secure: ipIQRlsXAeNP0b0Pk6JnoSN/4ie7K3EhR+fpOp/hx9BjfeFSfnxVSKQw9YDcpBWNrSnoxoWLda5UwujmPOUCRiZGEOh4WiuWr231JkhUWY9aIbYrUiByWj1Aqq5zEKUga1b9gg19erw3i7i8SROu39SaMkdhfnnm2SujCNej1yvBnGkK1K0T/g6U0Gz6pLo65tCtXQhQlyZdMTauBu4INVhbS49QZwsQNr77ecYEHA7kI+Mt1HAlgkj9hKRnTBcS5IDqVjXw3Fm/V2qjceGO3Dfs6KFtw6yVJeamtNasYhNju8N7qXYJOPA5lnmkROaPM5cuwGCiPctF0qsn4qPC/hyXGaCxV55eyqMtPbNPfHS/RfFyvQ2y4hi6od7Iq6qnTwDkxngTuQvnx2SNjbQ4pbZAqShCMWZUWmLjLnv8mUx3za7pL53bcU4H7Mu95xsnZvPnyGC6sj50DhtTivTyiK3lYIVbJiv7DFh7mAlj1l8tzAyDjJonbg+c+qnx0R/ILh8UK7RlfVPkliz4fC0ENtcvxJJRLOXuon3AJQsEQOc2zr13wWJsdIHaWjSpmP5fT2qUb3lkYACmhiDF5Fo1mRQBSjdGvG1MB4bXgXw/oCzx7NF0TJOV4Ee2xu9fTeKrQu5j6m/5KR0BMTAAFLLSf10Mughv3aOkH3nFt3mgzUs=
