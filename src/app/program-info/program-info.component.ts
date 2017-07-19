@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProgramService } from '../shared/program.service'
 import { spliceIntoChunks } from '../shared/utils'
 import {schedule_calculator} from 'weight-program-schema'
@@ -14,7 +14,9 @@ export class ProgramInfoComponent implements OnInit {
   public schedule: Day[][]
   public defaultName: string = 'Lift!'
 
-  constructor(private route: ActivatedRoute, private programService: ProgramService) {}
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private programService: ProgramService) {}
 
   ngOnInit() {
     this.route.paramMap
@@ -22,6 +24,10 @@ export class ProgramInfoComponent implements OnInit {
         this.program = this.programService.getProgram(params.get('name'))
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
       })
+  }
+
+  public showLibrary() {
+    this.router.navigate(['/lib'])
   }
 }
 

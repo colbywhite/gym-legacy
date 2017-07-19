@@ -1,3 +1,10 @@
+<button
+  type="button"
+  class="btn btn-link btn-sm"
+  (click)="showLibrary()">
+  <i class="fa fa-angle-left" aria-hidden="true"></i>
+  Back to Library
+</button>
 <h3>{{program.name}}</h3>
 <ngb-carousel class="" [interval]="false">
   <ng-template ngbSlide *ngFor="let i of schedule">

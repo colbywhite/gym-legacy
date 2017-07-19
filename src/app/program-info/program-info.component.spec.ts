@@ -1,5 +1,5 @@
-import { TestBed, async } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import * as _stronglifts from '../shared/programs/stronglifts.json'
 import { Observable } from 'rxjs/Observable';
@@ -18,11 +18,16 @@ describe('ProgramInfoComponent', () => {
   let info
   let element: Element
 
+  const mockRouter = {
+    navigate: (route) => {}
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AppModule],
       providers: [
         {provide: ActivatedRoute, useValue: strongliftsRoute},
+        {provide: Router, useValue: mockRouter},
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
@@ -51,5 +56,11 @@ describe('ProgramInfoComponent', () => {
     it('should display six weeks', () => {
       expect(element.querySelectorAll('div.list-group').length).toBe(6);
     });
+
+    it('should route back to library when back button is clicked', inject([Router], (router: Router) => {
+      spyOn(router, 'navigate')
+      element.querySelector('button').click()
+      expect(router.navigate).toHaveBeenCalledWith(['/lib']);
+    }))
   })
 })
