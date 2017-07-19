@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'S3 Bucket for Website'
+Parameters:
+  SiteName:
+    Description: Name of Website
+    Type: String
+    Default: gym-legacy
+Resources:
+  WebBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Ref: SiteName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+  WebBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: WebBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Allow Public Access to All Objects
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource:
+              Fn::Join:
+                - ':::'
+                -
+                  - arn:aws:s3
+                  - Fn::Join:
+                    - /
+                    -
+                      - Ref: WebBucket
+                      - '*'
+  CiUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName:
+            Fn::Join:
+              - '-'
+              -
+                - Ref: SiteName
+                - cipolicy
+          PolicyDocument:
+            Statement:
+              - Action: s3:PutObject
+                Effect: Allow
+                Resource:
+                  - Fn::Join:
+                    - ':::'
+                    -
+                      - arn:aws:s3
+                      - Fn::Join:
+                        - /
+                        -
+                          - Ref: WebBucket
+                          - '*'
+  CiKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName:
+        Ref: CiUser
+Outputs:
+  SiteName:
+    Description: The name of the website
+    Value:
+      Ref: SiteName
+  WebBucket:
+    Description: The bucket serving the website
+    Value:
+      Ref: WebBucket
+  URL:
+     Description: URL to hit the site
+     Value:
+      Fn::GetAtt:
+        - WebBucket
+        - WebsiteURL
+  CiUser:
+    Description: The user CI will use to do releases
+    Value:
+      Ref: CiUser
+  CiAccessKey:
+    Description: The CI user's access key
+    Value:
+      Ref: CiKey
+  CiSecretKey:
+    Description: The CI user's secret key
+    Value:
+      Fn::GetAtt:
+        - CiKey
+        - SecretAccessKey
