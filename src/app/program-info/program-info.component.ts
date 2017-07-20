@@ -12,7 +12,6 @@ import {schedule_calculator} from 'weight-program-schema'
 export class ProgramInfoComponent implements OnInit {
   public program: any
   public schedule: Day[][]
-  public defaultName: string = 'Lift!'
 
   constructor(private router: Router,
     private route: ActivatedRoute,

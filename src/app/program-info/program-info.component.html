@@ -1,22 +1,22 @@
 <button
   type="button"
-  class="btn btn-link btn-sm"
+  class="btn btn-secondary btn-sm"
   (click)="showLibrary()">
   <i class="fa fa-angle-left" aria-hidden="true"></i>
   Back to Library
 </button>
 <h3>{{program.name}}</h3>
 <ngb-carousel class="" [interval]="false">
-  <ng-template ngbSlide *ngFor="let i of schedule">
+  <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
       <div class="list-group">
-        <div class="list-group-item" *ngFor="let j of i">
-          <div *ngIf="j.rest">
+        <div class="list-group-item" *ngFor="let day of week; let j=index">
+          <div *ngIf="day.rest">
             <i class="fa fa-dream" aria-hidden="true"></i>
             Rest
           </div>
-          <div *ngIf="!j.rest">
+          <div *ngIf="!day.rest">
             <i class="fa fa-dumbbell" aria-hidden="true"></i>
-            {{j.name || defaultName}}
+            {{day.name || "Day " + ((7*i) + j +1)}}
           </div>
         </div>
       </div>
