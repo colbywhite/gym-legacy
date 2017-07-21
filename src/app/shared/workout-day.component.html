@@ -1,0 +1,11 @@
+<div class="clearfix list-group-item-heading">
+  <i class="fa fa-dumbbell" aria-hidden="true"></i>
+  {{name}}
+  <i class="fa fa-chevron-down float-right" aria-hidden="true"></i>
+</div>
+<div *ngIf="expanded">
+  <div class="list-group-item-text" *ngFor="let e of exercises">
+    {{e.name}}<br />
+    {{e.sets}} sets x {{e.reps}} reps
+  </div>
+</div>

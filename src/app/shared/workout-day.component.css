@@ -1,0 +1,7 @@
+:host {
+  width: 100%;
+}
+
+.list-group-item-text {
+  margin: 5px 10px 5px 10px;
+}

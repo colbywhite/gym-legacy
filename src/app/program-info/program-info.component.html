@@ -14,19 +14,11 @@
           *ngFor="let day of week; let j=index"
           (click)="toggle(i,j)">
           <gl-rest-day *ngIf="day.rest"></gl-rest-day>
-          <div
-            class="clearfix list-group-item-heading workoutDay"
-            *ngIf="!day.rest">
-            <i class="fa fa-dumbbell" aria-hidden="true"></i>
-            {{day.name || "Day " + ((7*i) + j + 1)}}
-            <i *ngIf="!day.rest" class="fa fa-chevron-down float-right" aria-hidden="true"></i>
-          </div>
-          <div *ngIf="states[i][j]">
-            <div class="list-group-item-text" *ngFor="let e of day.exercises">
-              {{e.name}}<br />
-              {{e.sets}} sets x {{e.reps}} reps
-            </div>
-          </div>
+          <gl-workout-day *ngIf="!day.rest"
+            [name]="day.name"
+            [exercises]="day.exercises"
+            [expanded]="states[i][j]">
+          </gl-workout-day>
         </div>
       </div>
   </ng-template>

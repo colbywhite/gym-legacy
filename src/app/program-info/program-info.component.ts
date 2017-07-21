@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProgramService } from '../shared/program.service'
 import { spliceIntoChunks } from '../shared/utils'
+import { Day } from '../shared/models'
 import {schedule_calculator} from 'weight-program-schema'
 
 @Component({
@@ -25,7 +26,7 @@ export class ProgramInfoComponent implements OnInit {
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
         this.states = this.schedule
           .map((week: Day[]) => {
-            return week.map((day: Day) => false)
+            return week.map((day: Day) => true)
           })
         console.log(this.states)
       })
@@ -39,21 +40,3 @@ export class ProgramInfoComponent implements OnInit {
     this.states[i][j] = !this.states[i][j]
   }
 }
-
-interface Load {
-  type: string
-  increment?: number
-  from?: string
-  percent?: number
-  of?: string
-}
-interface Exercise {
-  name: string
-  sets: number
-  reps: number
-  load: Load
-}
-interface WorkoutDay {
-  exercises: Exercise[]
-}
-type Day = string | WorkoutDay
