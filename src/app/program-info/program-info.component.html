@@ -15,7 +15,7 @@
           (click)="toggle(i,j)">
           <gl-rest-day *ngIf="day.rest"></gl-rest-day>
           <gl-workout-day *ngIf="!day.rest"
-            [name]="day.name"
+            [name]="day.name || 'Day ' + ((7*i) + j + 1)"
             [exercises]="day.exercises"
             [expanded]="states[i][j]">
           </gl-workout-day>

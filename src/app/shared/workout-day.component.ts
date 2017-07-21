@@ -12,5 +12,5 @@ export class WorkoutDayComponent {
   @Input()
   expanded: boolean
   @Input()
-  exercises :Exercise[]
+  exercises: Exercise[]
 }
