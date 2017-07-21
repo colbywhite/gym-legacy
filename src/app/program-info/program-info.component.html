@@ -13,12 +13,7 @@
           class="list-group-item list-group-item-action"
           *ngFor="let day of week; let j=index"
           (click)="toggle(i,j)">
-          <div
-            class="text-muted"
-            *ngIf="day.rest">
-            <i class="fa fa-dream" aria-hidden="true"></i>
-            Rest
-          </div>
+          <gl-rest-day *ngIf="day.rest"></gl-rest-day>
           <div
             class="clearfix list-group-item-heading workoutDay"
             *ngIf="!day.rest">

@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { ProgramLibraryComponent } from './program-lib/program-lib.component';
 import { ProgramInfoComponent } from './program-info/program-info.component';
 import { ProgramService } from './shared/program.service';
+import { RestDayComponent } from './shared/rest-day.component'
 
 @NgModule({
-  declarations: [AppComponent, ProgramLibraryComponent, ProgramInfoComponent],
+  declarations: [AppComponent, RestDayComponent, ProgramLibraryComponent, ProgramInfoComponent],
   imports: [BrowserModule, BrowserAnimationsModule, NgbModule.forRoot(), AppRoutingModule],
   providers: [ProgramService],
   bootstrap: [AppComponent]
