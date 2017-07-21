@@ -1,31 +1,35 @@
 <button
   type="button"
-  class="btn btn-secondary btn-sm"
+  class="btn btn-primary btn-sm"
   (click)="showLibrary()">
   <i class="fa fa-angle-left" aria-hidden="true"></i>
   Back to Library
 </button>
 <h3>{{program.name}}</h3>
-<ngb-carousel class="" [interval]="false">
+<ngb-carousel [interval]="false">
   <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
       <div class="list-group">
-        <div class="list-group-item" *ngFor="let day of week; let j=index"  (click)="toggle(i,j)">
-          <div *ngIf="day.rest">
+        <div
+          class="list-group-item list-group-item-action"
+          *ngFor="let day of week; let j=index"
+          (click)="toggle(i,j)">
+          <div
+            class="text-muted"
+            *ngIf="day.rest">
             <i class="fa fa-dream" aria-hidden="true"></i>
             Rest
           </div>
-          <div class="workoutDay" *ngIf="!day.rest">
-            <div class="clearfix">
-              <i class="fa fa-dumbbell" aria-hidden="true"></i>
-              {{day.name || "Day " + ((7*i) + j + 1)}}
-              <i *ngIf="!day.rest" class="fa fa-chevron-down float-right" aria-hidden="true"></i>
-            </div>
-            <div *ngIf="states[i][j]">
-              <ul>
-                <li *ngFor="let e of day.exercises">
-                  {{e.name}}: {{e.sets}}x{{e.reps}}
-                </li>
-              </ul>
+          <div
+            class="clearfix list-group-item-heading workoutDay"
+            *ngIf="!day.rest">
+            <i class="fa fa-dumbbell" aria-hidden="true"></i>
+            {{day.name || "Day " + ((7*i) + j + 1)}}
+            <i *ngIf="!day.rest" class="fa fa-chevron-down float-right" aria-hidden="true"></i>
+          </div>
+          <div *ngIf="states[i][j]">
+            <div class="list-group-item-text" *ngFor="let e of day.exercises">
+              {{e.name}}<br />
+              {{e.sets}} sets x {{e.reps}} reps
             </div>
           </div>
         </div>
