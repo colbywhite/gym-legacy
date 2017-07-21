@@ -10,3 +10,7 @@ ngb-carousel .list-group {
 ngb-carousel .list-group-item {
   background-color: red;
 }
+
+.workoutDay {
+  width: 100%;
+}

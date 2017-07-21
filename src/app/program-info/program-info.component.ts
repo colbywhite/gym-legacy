@@ -12,6 +12,7 @@ import {schedule_calculator} from 'weight-program-schema'
 export class ProgramInfoComponent implements OnInit {
   public program: any
   public schedule: Day[][]
+  public states: boolean[][]
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -22,18 +23,29 @@ export class ProgramInfoComponent implements OnInit {
       .subscribe((params: ParamMap) => {
         this.program = this.programService.getProgram(params.get('name'))
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
+        this.states = this.schedule
+          .map((week: Day[]) => {
+            return week.map((day: Day) => false)
+          })
+        console.log(this.states)
       })
   }
 
   public showLibrary() {
     this.router.navigate(['/lib'])
   }
+
+  toggle(i: number, j: number): void {
+    this.states[i][j] = !this.states[i][j]
+  }
 }
 
 interface Load {
   type: string
-  increment: number
-  from: string
+  increment?: number
+  from?: string
+  percent?: number
+  of?: string
 }
 interface Exercise {
   name: string

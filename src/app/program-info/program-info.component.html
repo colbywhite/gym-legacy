@@ -9,14 +9,24 @@
 <ngb-carousel class="" [interval]="false">
   <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
       <div class="list-group">
-        <div class="list-group-item" *ngFor="let day of week; let j=index">
+        <div class="list-group-item" *ngFor="let day of week; let j=index"  (click)="toggle(i,j)">
           <div *ngIf="day.rest">
             <i class="fa fa-dream" aria-hidden="true"></i>
             Rest
           </div>
-          <div *ngIf="!day.rest">
-            <i class="fa fa-dumbbell" aria-hidden="true"></i>
-            {{day.name || "Day " + ((7*i) + j +1)}}
+          <div class="workoutDay" *ngIf="!day.rest">
+            <div class="clearfix">
+              <i class="fa fa-dumbbell" aria-hidden="true"></i>
+              {{day.name || "Day " + ((7*i) + j + 1)}}
+              <i *ngIf="!day.rest" class="fa fa-chevron-down float-right" aria-hidden="true"></i>
+            </div>
+            <div *ngIf="states[i][j]">
+              <ul>
+                <li *ngFor="let e of day.exercises">
+                  {{e.name}}: {{e.sets}}x{{e.reps}}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
