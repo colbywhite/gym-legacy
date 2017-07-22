@@ -1,0 +1,22 @@
+<gl-header></gl-header>
+<div class="card">
+  <h3 class="card-header">Track your gains</h3>
+  <div class="card-block">
+    <p class="card-text">
+      Use a common weight program schema to track your progress in the gym.
+    </p>
+    <div
+      *ngIf="authService.isAuthenticated()"
+      class="btn-group mx-auto"
+      role="group">
+      <button
+        routerLink="/lib"
+        class="btn btn-primary">
+        View Library
+      </button>
+    </div>
+  </div>
+  <div class="card-block">
+     <h6>Open Source. No Ads.</h6>
+  </div>
+</div>
