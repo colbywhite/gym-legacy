@@ -5,33 +5,33 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login.component';
-import { LogoutComponent } from './auth/logout.component';
-import { CallbackComponent } from './auth/callback.component';
+import { AuthModule } from './auth/auth.module';
 import { ProgramLibraryComponent } from './program-lib/program-lib.component';
 import { ProgramInfoComponent } from './program-info/program-info.component';
 import { ProgramService } from './shared/program.service';
-import { AuthService } from './shared/auth.service';
-import { HeaderComponent } from './shared/header/header.component';
 import { RestDayComponent } from './shared/rest-day.component'
 import { WorkoutDayComponent } from './shared/workout-day.component'
 import { HomeComponent } from './home/home.component'
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CallbackComponent,
-    HeaderComponent,
     HomeComponent,
-    LoginComponent,
-    LogoutComponent,
     ProgramLibraryComponent,
     ProgramInfoComponent,
     RestDayComponent,
     WorkoutDayComponent
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, NgbModule.forRoot(), AppRoutingModule],
-  providers: [AuthService, ProgramService],
+  imports: [
+    AuthModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    NgbModule.forRoot(),
+    SharedModule,
+    AppRoutingModule
+  ],
+  providers: [ProgramService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
