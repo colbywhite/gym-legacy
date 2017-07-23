@@ -28,7 +28,6 @@ export class ProgramInfoComponent implements OnInit {
           .map((week: Day[]) => {
             return week.map((day: Day) => false)
           })
-        console.log(this.states)
       })
   }
 
