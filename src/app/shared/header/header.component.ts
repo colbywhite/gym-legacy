@@ -26,5 +26,5 @@ import { AuthService} from '../auth.service'
   `
 })
 export class HeaderComponent {
-  constructor(public router: Router, public authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 }

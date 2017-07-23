@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import * as _stronglifts from '../shared/programs/stronglifts.json'
@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { ProgramInfoComponent } from './program-info.component';
+import { HeaderComponent } from '../shared/header/header.component';
+import { MockHeader } from '../shared/header/mock-header.override';
 import { AppModule } from '../app.module';
 
 const stronglifts: any = _stronglifts
@@ -22,8 +24,8 @@ describe('ProgramInfoComponent', () => {
     navigate: (route) => {}
   }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
       imports: [AppModule],
       providers: [
         {provide: ActivatedRoute, useValue: strongliftsRoute},
@@ -31,14 +33,13 @@ describe('ProgramInfoComponent', () => {
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(ProgramInfoComponent);
-        info = fixture.debugElement.componentInstance
-        info.ngOnInit()
-        element = fixture.debugElement.nativeElement
-      })
-  }))
+    .overrideComponent(HeaderComponent, MockHeader)
+    .createComponent(ProgramInfoComponent);
+    fixture.autoDetectChanges()
+    info = fixture.debugElement.componentInstance
+    info.ngOnInit()
+    element = fixture.debugElement.nativeElement
+  })
 
   it('should compile', () => {
     expect(info).toBeTruthy();
