@@ -12,7 +12,7 @@ const params = {
   TemplateBody: JSON.stringify(template)
 }
 
-AWSCFMonitor.createStack(params)
+AWSCFMonitor.createOrUpdateStack(params)
   .then((finalStatus) => {
     console.log(`Hooray, the stack is ${finalStatus}`);
     console.log('And I didn\'t have to write a bunch of boilerplate to wait for it!');

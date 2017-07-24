@@ -14,6 +14,11 @@ Resources:
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
+        RoutingRules:
+          - RedirectRule:
+              ReplaceKeyWith: ''
+            RoutingRuleCondition:
+              HttpErrorCodeReturnedEquals: '404'
   WebBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
