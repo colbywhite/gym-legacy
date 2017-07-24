@@ -5,8 +5,12 @@
     <p class="card-text">
       Use a common weight program schema to track your progress in the gym.
     </p>
+  </div>
+  <div class="card-block" *ngIf="profile">
+    <p class="card-text">
+      Start browsing the library {{profile.given_name}} to start your progress.
+    </p>
     <div
-      *ngIf="authService.isAuthenticated()"
       class="btn-group mx-auto"
       role="group">
       <button

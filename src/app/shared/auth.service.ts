@@ -11,8 +11,10 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://gym-legacy.auth0.com/userinfo',
     redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid'
+    scope: 'openid profile'
   });
+
+  profile: any
 
   constructor() {}
 
@@ -53,4 +55,19 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
+  public getProfile(cb: (err: any, profile: any) => void): void {
+    if(!this.isAuthenticated()){
+      throw new Error('Not logged in');
+    }
+    if(this.profile) {
+      cb({}, this.profile)
+    }
+    const accessToken = localStorage.getItem('access_token');
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if(profile) {
+        this.profile = profile
+      }
+      cb(err, profile)
+    });
+  }
 }
