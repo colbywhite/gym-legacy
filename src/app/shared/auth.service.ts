@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
   // TODO: use config vars for clientID/redirectUri
   auth0 = new auth0.WebAuth({
-    clientID: '',
+    clientID: environment.auth.clientID,
     domain: 'gym-legacy.auth0.com',
     responseType: 'token id_token',
     audience: 'https://gym-legacy.auth0.com/userinfo',
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: environment.auth.redirectUri,
     scope: 'openid profile'
   });
 
