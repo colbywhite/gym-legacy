@@ -10,6 +10,10 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit() {
     this.authService.handleAuthentication()
-    this.router.navigate(['/'])
+    // TODO Figure out why this is needed. It shouldn't be.
+    setTimeout(() => {
+      this.authService.getProfile((err, profile) => {})
+      this.router.navigate(['/'])
+    }, 100)
   }
 }
