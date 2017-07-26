@@ -21,7 +21,10 @@ import { AuthService} from '../auth.service'
         routerLink="/login">
         Log In
       </button>
-      <a class="navbar-brand" routerLink="/">Gym Legacy</a>
+      <a class="navbar-brand" routerLink="/">
+        Gym Legacy
+        <small class="text-muted">beta</small>
+      </a>
     </nav>
   `
 })

@@ -14,6 +14,6 @@ export class CallbackComponent implements OnInit {
     setTimeout(() => {
       this.authService.getProfile((err, profile) => {})
       this.router.navigate(['/'])
-    }, 100)
+    }, 1000)
   }
 }

@@ -14,11 +14,6 @@ Resources:
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-        RoutingRules:
-          - RedirectRule:
-              ReplaceKeyWith: ''
-            RoutingRuleCondition:
-              HttpErrorCodeReturnedEquals: '404'
   WebBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -41,6 +36,50 @@ Resources:
                     -
                       - Ref: WebBucket
                       - '*'
+  CloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: /index.html
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          Compress: true
+          TargetOriginId:
+            Ref: WebBucket
+          ViewerProtocolPolicy: allow-all
+          ForwardedValues:
+            QueryString: true
+          MaxTTL: 600
+          DefaultTTL: 300
+        Restrictions:
+          GeoRestriction:
+            Locations:
+              - US
+            RestrictionType: whitelist
+        Origins:
+          - Id:
+              Ref: WebBucket
+            DomainName:
+              Fn::GetAtt:
+                - WebBucket
+                - DomainName
+            S3OriginConfig:
+              OriginAccessIdentity: ''
   CiUser:
     Type: AWS::IAM::User
     Properties:

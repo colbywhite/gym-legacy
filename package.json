@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "buildProd": "ng build -prod -aot -pr false -e prod -bh \"http://sustainabledev.io/gym-legacy/\"",
+    "buildProd": "ng build -prod -aot -pr false -e prod -bh \"http://d1g8look55h14i.cloudfront.net/\"",
     "test": "ng test --reporters spec -pr false -sr -cc",
     "lint": "ng lint",
     "createStack": "cd aws && node create.js",
