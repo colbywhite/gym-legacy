@@ -13,6 +13,7 @@ import { RestDayComponent } from './shared/rest-day.component'
 import { WorkoutDayComponent } from './shared/workout-day.component'
 import { HomeComponent } from './home/home.component'
 import { SharedModule } from './shared/shared.module';
+import { AuthGuard } from './shared/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     AppRoutingModule
   ],
-  providers: [ProgramService],
+  providers: [ProgramService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
