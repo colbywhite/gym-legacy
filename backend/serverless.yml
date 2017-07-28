@@ -1,0 +1,17 @@
+service: gym-legacy
+provider:
+  name: aws
+  runtime: nodejs6.10
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: program/activate
+          method: get
+          authorizer: auth
+  auth:
+    handler: auth.authenticate
+    environment:
+      AUTH0_DOMAIN: gym-legacy.auth0.com
+      AUTH0_CLIENTID: uqHHyHX4RAGT85ziBkfKaLnFhDxZQCIQ
