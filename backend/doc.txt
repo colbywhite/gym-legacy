@@ -1,0 +1,17 @@
+title GL
+
+Angular-> Auth0 Auth API:
+Auth0 Auth API -> Angular: user's auth token
+
+Angular -> GW: user's auth token
+GW -> authorizer λ:
+authorizer λ -> GW: policy for token
+GW -> activate λ:
+note right of activate λ
+    deployed with
+    clientid/secret
+    in order to hit
+    Auth0 Management API
+end note
+activate λ -> GW:
+GW -> Angular:
