@@ -16,5 +16,16 @@ functions:
           path: user/info
           method: get
           authorizer: auth
+  activateWorkout:
+    handler: userinfo.post
+    events:
+      - http:
+          path: user/activateWorkout
+          method: post
+          authorizer: auth
+          request:
+            parameters:
+              querystrings:
+                url: true
   auth:
     handler: auth.authenticate

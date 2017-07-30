@@ -1,4 +1,5 @@
 'use strict';
+// TODO a util class is needed to hold a lot of the DRY
 
 const AuthenticationClient = require('auth0').AuthenticationClient;
 const ManagementClient = require('auth0').ManagementClient;
@@ -7,7 +8,7 @@ const throwErr = (err) => {
   throw new Error(err)
 }
 
-let tokenInfo = {
+var tokenInfo = {
   dateRetrieved: undefined,
   token: undefined
 }
@@ -32,15 +33,52 @@ const getToken = () => {
     })
 }
 
+const getUser = (user_id, token) => {
+  const auth0 = new ManagementClient({
+    domain: process.env.AUTH0_DOMAIN,
+    token: token
+  });
+  console.log(`Getting info for ${user_id}`)
+  return auth0.getUser({id: user_id})
+}
+
 module.exports.get = (event, context, callback) => {
+  const _getUser = getUser.bind(this, event.requestContext.authorizer.principalId)
   getToken()
-    .then((token) => {
+    .then(_getUser)
+    .then((user) => {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(user)
+      };
+      callback(null, response);
+    })
+    .catch(throwErr)
+}
+
+module.exports.post = (event, context, callback) => {
+  if(!event.queryStringParameters.name) {
+    throwErr('Missing name to activate.')
+  }
+  const newWorkout = event.queryStringParameters.name
+  var token = undefined
+  const _getUser = getUser.bind(this, event.requestContext.authorizer.principalId)
+
+  getToken()
+    .then((_token) => {token = _token; return token})
+    .then(_getUser)
+    .then((user) => {
       const auth0 = new ManagementClient({
         domain : process.env.AUTH0_DOMAIN,
         token: token
       });
-      console.log(`Getting info for ${event.requestContext.authorizer.principalId}`)
-      return auth0.getUser({id: event.requestContext.authorizer.principalId})
+      var active = user.user_metadata.active
+      console.log(`${event.requestContext.authorizer.principalId}: Adding '${newWorkout}' to '${active}'`)
+      active.push(newWorkout)
+      return auth0.updateUserMetadata(
+        {id: event.requestContext.authorizer.principalId},
+        {active: active}
+      )
     })
     .then((user) => {
       const response = {
@@ -50,4 +88,4 @@ module.exports.get = (event, context, callback) => {
       callback(null, response);
     })
     .catch(throwErr)
-};
+}
