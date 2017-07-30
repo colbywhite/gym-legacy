@@ -14,4 +14,12 @@ export class ProgramService {
   public getProgram(name:string) {
     return this.standards.find((p) => p.name==name)
   }
+
+  public activateProgram(name: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(name)
+      }, 5000)
+    })
+  }
 }

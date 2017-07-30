@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  // TODO: use config vars for clientID/redirectUri
   auth0 = new auth0.WebAuth({
     clientID: environment.auth.clientID,
     domain: 'gym-legacy.auth0.com',
@@ -13,7 +12,7 @@ export class AuthService {
     audience: 'https://gym-legacy.auth0.com/userinfo',
     redirectUri: environment.auth.redirectUri,
     scope: 'openid profile'
-  });
+  })
 
   profile: any
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BusyModule} from 'angular2-busy';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -28,6 +29,7 @@ import { AuthGuard } from './shared/auth-guard.service';
     AuthModule,
     BrowserModule,
     BrowserAnimationsModule,
+    BusyModule,
     NgbModule.forRoot(),
     SharedModule,
     AppRoutingModule

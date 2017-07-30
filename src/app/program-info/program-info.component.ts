@@ -11,6 +11,7 @@ import {schedule_calculator} from 'weight-program-schema'
   styleUrls: ['./program-info.component.css']
 })
 export class ProgramInfoComponent implements OnInit {
+  public busy: Promise<any>
   public program: any
   public schedule: Day[][]
   public states: boolean[][]
@@ -37,5 +38,9 @@ export class ProgramInfoComponent implements OnInit {
 
   toggle(i: number, j: number): void {
     this.states[i][j] = !this.states[i][j]
+  }
+
+  startProgram() {
+    this.busy = this.programService.activateProgram(this.program.name)
   }
 }
