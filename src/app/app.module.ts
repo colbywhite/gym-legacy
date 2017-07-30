@@ -15,6 +15,7 @@ import { WorkoutDayComponent } from './shared/workout-day.component'
 import { HomeComponent } from './home/home.component'
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared/auth-guard.service';
+import { HttpModule }    from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthGuard } from './shared/auth-guard.service';
     BrowserModule,
     BrowserAnimationsModule,
     BusyModule,
+    HttpModule,
     NgbModule.forRoot(),
     SharedModule,
     AppRoutingModule
