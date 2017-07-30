@@ -1,30 +1,33 @@
-<gl-header></gl-header>
-<button
-  type="button"
-  class="btn btn-primary btn-sm"
-  (click)="showLibrary()">
-  <i class="fa fa-angle-left" aria-hidden="true"></i>
-  Back to Library
-</button>
-<h3>{{program.name}}</h3>
-<ngb-carousel [interval]="false">
-  <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
-      <div class="list-group">
-        <div
-          class="list-group-item list-group-item-action"
-          *ngFor="let day of week; let j=index"
-          (click)="toggle(i,j)">
-          <gl-rest-day *ngIf="day.rest"></gl-rest-day>
-          <gl-workout-day *ngIf="!day.rest"
-            [name]="day.name || 'Day ' + ((7*i) + j + 1)"
-            [exercises]="day.exercises"
-            [expanded]="states[i][j]">
-          </gl-workout-day>
+<div [ngBusy]="busy">
+  <gl-header></gl-header>
+  <button
+    type="button"
+    class="btn btn-primary btn-sm"
+    (click)="showLibrary()">
+    <i class="fa fa-angle-left" aria-hidden="true"></i>
+    Back to Library
+  </button>
+  <h3>{{program.name}}</h3>
+  <ngb-carousel [interval]="false">
+    <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
+        <div class="list-group">
+          <div
+            class="list-group-item list-group-item-action"
+            *ngFor="let day of week; let j=index"
+            (click)="toggle(i,j)">
+            <gl-rest-day *ngIf="day.rest"></gl-rest-day>
+            <gl-workout-day *ngIf="!day.rest"
+              [name]="day.name || 'Day ' + ((7*i) + j + 1)"
+              [exercises]="day.exercises"
+              [expanded]="states[i][j]">
+            </gl-workout-day>
+          </div>
         </div>
-      </div>
-  </ng-template>
-</ngb-carousel>
+    </ng-template>
+  </ngb-carousel>
 
-<button class="btn btn-primary btn-lg btn-circle btn-raised btn-fab">
-  <i class="fa fa-play" aria-hidden="true"></i>
-</button>
+  <button class="btn btn-primary btn-lg btn-circle btn-raised btn-fab"
+      (click)="startProgram()">
+    <i class="fa fa-play" aria-hidden="true"></i>
+  </button>
+</div>
