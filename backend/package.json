@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "predeploy": "replace -q -c '%CLIENTID%' \"${AUTH0_BACKEND_CLIENT_ID}\" serverless.yml",
-    "postdeploy": "replace -q -c \"${AUTH0_BACKEND_CLIENT_ID}\" '%CLIENTID%' serverless.yml",
     "deploy": "sls deploy -v"
   },
   "author": "",
@@ -14,7 +12,6 @@
     "serverless": "^1.18.1"
   },
   "dependencies": {
-    "auth": "0.0.9",
     "auth0": "^2.7.0",
     "bluebird": "^3.5.0"
   }

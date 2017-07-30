@@ -9,13 +9,13 @@ if (typeof process.env.AUTH0_DOMAIN === "undefined" || ! process.env.AUTH0_DOMAI
   throw new Error("Expected AUTHO_DOMAIN environment variable to be set in .env file. See https://manage.auth0.com/#/applications")
 }
 
-if (typeof process.env.AUTH0_CLIENTID === "undefined" || process.env.AUTH0_CLIENTID.length === 0) {
-  throw new Error("Expected AUTH0_CLIENTID environment variable to be set in .env file. See https://manage.auth0.com/#/applications")
+if (typeof process.env.AUTH0_BACKEND_CLIENT_ID === "undefined" || process.env.AUTH0_BACKEND_CLIENT_ID.length === 0) {
+  throw new Error("Expected AUTH0_BACKEND_CLIENT_ID environment variable to be set in .env file. See https://manage.auth0.com/#/applications")
 }
 
 var auth0 = new AuthenticationClient({
   domain : process.env.AUTH0_DOMAIN,
-  clientId : process.env.AUTH0_CLIENTID
+  clientId : process.env.AUTH0_BACKEND_CLIENT_ID
 });
 
 // extract and return the Bearer Token from the Lambda event parameters
