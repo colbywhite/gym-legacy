@@ -16,6 +16,7 @@ functions:
           path: user/info
           method: get
           authorizer: auth
+          cors: true
   activateWorkout:
     handler: userinfo.post
     events:
@@ -23,6 +24,7 @@ functions:
           path: user/activateWorkout
           method: post
           authorizer: auth
+          cors: true
           request:
             parameters:
               querystrings:
