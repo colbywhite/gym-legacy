@@ -4,6 +4,10 @@
 const AuthenticationClient = require('auth0').AuthenticationClient;
 const ManagementClient = require('auth0').ManagementClient;
 
+const HEADERS = {
+  "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+  "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+}
 const throwErr = (err) => {
   throw new Error(err)
 }
@@ -48,6 +52,7 @@ module.exports.get = (event, context, callback) => {
     .then(_getUser)
     .then((user) => {
       const response = {
+        headers: HEADERS,
         statusCode: 200,
         body: JSON.stringify(user)
       };
@@ -82,6 +87,7 @@ module.exports.post = (event, context, callback) => {
     })
     .then((user) => {
       const response = {
+        headers: HEADERS,
         statusCode: 200,
         body: JSON.stringify(user)
       };
