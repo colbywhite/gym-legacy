@@ -14,4 +14,4 @@ functions:
     handler: auth.authenticate
     environment:
       AUTH0_DOMAIN: gym-legacy.auth0.com
-      AUTH0_CLIENTID: uqHHyHX4RAGT85ziBkfKaLnFhDxZQCIQ
+      AUTH0_CLIENTID: '%CLIENTID%'
