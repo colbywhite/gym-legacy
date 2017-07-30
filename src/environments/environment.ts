@@ -1,6 +1,6 @@
 export const environment = {
   auth: {
-    clientID: 'uqHHyHX4RAGT85ziBkfKaLnFhDxZQCIQ',
+    clientID: '%CLIENTID%',
     redirectUri: 'http://localhost:4200/callback'
   },
   production: false
