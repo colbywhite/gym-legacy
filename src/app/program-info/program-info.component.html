@@ -1,12 +1,19 @@
 <div [ngBusy]="busy">
   <gl-header></gl-header>
-  <button
-    type="button"
-    class="btn btn-primary btn-sm"
-    (click)="showLibrary()">
-    <i class="fa fa-angle-left" aria-hidden="true"></i>
-    Back to Library
-  </button>
+  <div class="btn-toolbar justify-content-between">
+    <button type="button"
+        class="btn btn-secondary btn-sm"
+        (click)="showLibrary()">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+      Back to Library
+    </button>
+
+    <button [disabled]="active"
+        class="btn btn-secondary btn-sm"
+        (click)="startProgram()">
+      Start Program
+    </button>
+  </div>
   <h3>{{program.name}}</h3>
   <ngb-carousel [interval]="false">
     <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
@@ -25,9 +32,4 @@
         </div>
     </ng-template>
   </ngb-carousel>
-
-  <button class="btn btn-primary btn-lg btn-circle btn-raised btn-fab"
-      (click)="startProgram()">
-    <i class="fa fa-play" aria-hidden="true"></i>
-  </button>
 </div>

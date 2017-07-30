@@ -25,11 +25,29 @@ export class ProgramService {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const access_token = localStorage.getItem('access_token')
-    const headers = new Headers({'Authorization': `Bearer ${access_token}`});
     const url = `${environment.apiUrl}/user/activateWorkout?name=${name}`
-    return this.http.post(url, {}, {headers: headers})
+    return this.http.post(url, {}, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
+  }
+
+  public isProgramActive(name: string): Promise<boolean> {
+    if(!this.authService.isAuthenticated()) {
+      return Promise.reject(false)
+    }
+    const url = `${environment.apiUrl}/user/info`
+    return this.http.get(url, {headers: this.authHeaders})
+               .toPromise()
+               .then((response) => response.json().user_metadata.active as string[])
+               .then((active) => this.containsValue(active, name))
+  }
+
+  private get authHeaders(): Headers {
+    const access_token = localStorage.getItem('access_token')
+    return new Headers({'Authorization': `Bearer ${access_token}`});
+  }
+
+  private containsValue(list: string[], value: string): boolean {
+    return (list.find((el) => el === value)) ? true : false
   }
 }

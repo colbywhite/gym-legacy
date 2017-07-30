@@ -15,6 +15,7 @@ export class ProgramInfoComponent implements OnInit {
   public program: any
   public schedule: Day[][]
   public states: boolean[][]
+  public active: boolean = true
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -29,6 +30,9 @@ export class ProgramInfoComponent implements OnInit {
           .map((week: Day[]) => {
             return week.map((day: Day) => false)
           })
+        // TODO do this once at the lib component and pass it along
+        this.programService.isProgramActive(this.program.name)
+          .then((isActive) => this.active = isActive)
       })
   }
 
