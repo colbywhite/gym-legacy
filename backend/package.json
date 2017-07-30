@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "predeploy": "replace -q -c '%CLIENTID%' \"${AUTH0_BACKEND_CLIENT_ID}\" serverless.yml",
+    "postdeploy": "replace -q -c \"${AUTH0_BACKEND_CLIENT_ID}\" '%CLIENTID%' serverless.yml",
+    "deploy": "sls deploy -v"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "replace": "^0.3.0",
     "serverless": "^1.18.1"
   },
   "dependencies": {
