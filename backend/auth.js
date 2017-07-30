@@ -63,7 +63,8 @@ var getPolicy = function(policy, user_id) {
   }
 }
 
-const buildPolicy = (resource) => {
+const buildPolicy = (methodArn) => {
+  const resource = resourceFromMethodArn(methodArn)
   return {
     Version: "2012-10-17",
     Statement: [{
@@ -73,6 +74,21 @@ const buildPolicy = (resource) => {
       Resource: [resource]
     }]
   }
+}
+
+const resourceFromMethodArn = (arn) => {
+  var arnParts = arn.split(':')
+  const path = arnParts.splice(arnParts.length-1)[0]  // remove the old path
+  const pathParts = path.split('/')
+  let newPathParts = []
+  newPathParts.push(pathParts[0])  // keep the same api id
+  newPathParts.push(pathParts[1])  // keep the same stage
+  newPathParts.push('*')  // accept a HTTP methods
+  newPathParts.push('user')  // accept everything on the /user path
+  newPathParts.push('*')  // accept everything on the /user path
+  const newPath = newPathParts.join('/')
+  arnParts.push(newPath)
+  return arnParts.join(':')
 }
 
 module.exports.authenticate = function (params, context) {
