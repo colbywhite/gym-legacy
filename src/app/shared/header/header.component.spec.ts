@@ -30,18 +30,18 @@ describe('HeaderComponent', () => {
   })
 
   describe('when logged in', () => {
-    it('should display log out button', inject([AuthService], (authService: AuthService) => {
+    it('should display log out out link first in navbar', inject([AuthService], (authService: AuthService) => {
       authService.login()
       fixture.detectChanges()
-      expect(element.querySelector('button').textContent.trim()).toBe('Log Out');
+      expect(element.querySelector('ul li').textContent.trim()).toBe('Log Out');
     }))
   })
 
   describe('when logged out', () => {
-    it('should display log in button', inject([AuthService], (authService: AuthService) => {
+    it('should display log in link first in navbar', inject([AuthService], (authService: AuthService) => {
       authService.logout()
       fixture.detectChanges()
-      expect(element.querySelector('button').textContent.trim()).toBe('Log In');
+      expect(element.querySelector('ul li').textContent.trim()).toBe('Log In');
     }))
   })
 })
