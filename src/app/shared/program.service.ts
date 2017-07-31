@@ -48,6 +48,9 @@ export class ProgramService {
   }
 
   private containsValue(list: string[], value: string): boolean {
+    if (!list || list.length == 0) {
+      return false
+    }
     return (list.find((el) => el === value)) ? true : false
   }
 }
