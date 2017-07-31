@@ -9,6 +9,7 @@ const HEADERS = {
   "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
 }
 const throwErr = (err) => {
+  console.log('err', err)
   throw new Error(err)
 }
 
@@ -77,7 +78,7 @@ module.exports.post = (event, context, callback) => {
         domain : process.env.AUTH0_DOMAIN,
         token: token
       });
-      var active = user.user_metadata.active
+      var active = user.user_metadata.active || []
       console.log(`${event.requestContext.authorizer.principalId}: Adding '${newWorkout}' to '${active}'`)
       active.push(newWorkout)
       return auth0.updateUserMetadata(
