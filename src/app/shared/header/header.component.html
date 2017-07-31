@@ -1,0 +1,30 @@
+<nav class="navbar navbar-inverse bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right"
+      type="button"
+      (click)="isCollapsed = !isCollapsed"
+      aria-controls="exCollapsingNavbar2"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="/">
+    Gym Legacy
+    <small class="text-muted">beta</small>
+  </a>
+  <div [ngbCollapse]="isCollapsed">
+    <ul class="nav navbar-nav">
+      <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+        <a class="nav-link" routerLink="/login">Log In</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
+        <a class="nav-link" routerLink="/logout">Log Out</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/lib">Library</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Active Programs</a>
+      </li>
+    </ul>
+  </div>
+</nav>

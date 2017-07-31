@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from '../shared/header/header.component';
 import { AppRoutingModule } from '../app-routing.module';
@@ -10,7 +11,8 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule
+    BrowserModule,
+    NgbModule
   ],
   exports: [
     HeaderComponent
