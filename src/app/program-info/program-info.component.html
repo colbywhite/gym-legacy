@@ -8,10 +8,16 @@
       Back to Library
     </button>
 
-    <button [disabled]="active"
+    <button *ngIf="active === false"
         class="btn btn-secondary btn-sm"
         (click)="startProgram()">
       Start Program
+    </button>
+
+    <button *ngIf="active === true"
+        class="btn btn-secondary btn-sm"
+        (click)="stopProgram()">
+      Stop Program
     </button>
   </div>
   <h3>{{program.name}}</h3>

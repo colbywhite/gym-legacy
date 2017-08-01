@@ -79,7 +79,6 @@ module.exports.post = (event, context, callback) => {
         token: token
       });
       var active = user.user_metadata.active || []
-      console.log(`${event.requestContext.authorizer.principalId}: Adding '${newWorkout}' to '${active}'`)
       active.push(newWorkout)
       return auth0.updateUserMetadata(
         {id: event.requestContext.authorizer.principalId},
@@ -96,3 +95,37 @@ module.exports.post = (event, context, callback) => {
     })
     .catch(throwErr)
 }
+
+module.exports.delete = (event, context, callback) => {
+  if(!event.queryStringParameters.name) {
+    throwErr('Missing name to activate.')
+  }
+  const oldWorkout = event.queryStringParameters.name
+  var token = undefined
+  const _getUser = getUser.bind(this, event.requestContext.authorizer.principalId)
+
+  getToken()
+    .then((_token) => {token = _token; return token})
+    .then(_getUser)
+    .then((user) => {
+      const auth0 = new ManagementClient({
+        domain : process.env.AUTH0_DOMAIN,
+        token: token
+      });
+      var active = user.user_metadata.active || []
+      const newActive = active.filter((el) => el !== oldWorkout)
+      return auth0.updateUserMetadata(
+        {id: event.requestContext.authorizer.principalId},
+        {active: newActive}
+      )
+    })
+    .then((user) => {
+      const response = {
+        headers: HEADERS,
+        statusCode: 200,
+        body: JSON.stringify(user)
+      };
+      callback(null, response);
+    })
+    .catch(throwErr)
+ }

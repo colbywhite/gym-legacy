@@ -15,7 +15,7 @@ export class ProgramInfoComponent implements OnInit {
   public program: any
   public schedule: Day[][]
   public states: boolean[][]
-  public active: boolean = true
+  public active: boolean
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -49,6 +49,15 @@ export class ProgramInfoComponent implements OnInit {
     this.busy.then((status) => {
       if(status == 200) {
         this.router.navigate(['/active'])
+      }
+    })
+  }
+
+  stopProgram() {
+    this.busy = this.programService.deactivateProgram(this.program.name)
+    this.busy.then((status) => {
+      if(status == 200) {
+        this.active = false
       }
     })
   }
