@@ -13,5 +13,5 @@ Workout programs are based upon the open-source
 
 ## Tests
 - For single run: `npm test`
-- For testing in watch mode: `npm test:watch`
+- For testing in watch mode: `npm run test:watch`
 - For end-to-end tests: `npm run e2e`
