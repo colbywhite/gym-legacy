@@ -29,5 +29,17 @@ functions:
             parameters:
               querystrings:
                 url: true
+  deactivateWorkout:
+    handler: userinfo.delete
+    events:
+      - http:
+          path: user/deactivateWorkout
+          method: DELETE
+          authorizer: auth
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                url: true
   auth:
     handler: auth.authenticate

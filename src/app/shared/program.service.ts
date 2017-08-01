@@ -51,6 +51,16 @@ export class ProgramService {
                .then((response) => response.status)
   }
 
+  public deactivateProgram(name: string): Promise<number> {
+    if(!this.authService.isAuthenticated()) {
+      return Promise.reject('Not logged in')
+    }
+    const url = `${environment.apiUrl}/user/deactivateWorkout?name=${name}`
+    return this.http.delete(url, {headers: this.authHeaders})
+               .toPromise()
+               .then((response) => response.status)
+  }
+
   public isProgramActive(name: string): Promise<boolean> {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject(false)
