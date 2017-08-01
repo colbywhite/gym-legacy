@@ -46,5 +46,10 @@ export class ProgramInfoComponent implements OnInit {
 
   startProgram() {
     this.busy = this.programService.activateProgram(this.program.name)
+    this.busy.then((status) => {
+      if(status == 200) {
+        this.router.navigate(['/active'])
+      }
+    })
   }
 }

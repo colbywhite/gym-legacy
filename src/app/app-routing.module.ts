@@ -6,10 +6,12 @@ import { LoginComponent } from './auth/login.component';
 import { LogoutComponent } from './auth/logout.component';
 import { CallbackComponent } from './auth/callback.component';
 import { HomeComponent } from './home/home.component'
+import { ActiveProgramsComponent } from './active-programs/active-programs.component'
 import { AuthGuard } from './shared/auth-guard.service'
 
 const appRoutes: Routes = [
   {path: 'program/:name', component: ProgramInfoComponent, canActivate: [AuthGuard]},
+  {path: 'active', component: ActiveProgramsComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'callback', component: CallbackComponent},

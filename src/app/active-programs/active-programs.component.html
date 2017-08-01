@@ -1,0 +1,8 @@
+<gl-header></gl-header>
+<h1>Active Programs</h1>
+<div class="list-group">
+  <div class="list-group-item clearfix" *ngFor="let program of programs" (click)="showProgram(program)">
+    {{program.name}}
+    <i class="fa fa-chevron-right float-right" aria-hidden="true"></i>
+  </div>
+</div>
