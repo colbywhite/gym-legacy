@@ -13,11 +13,31 @@ import { environment } from '../../environments/environment';
 export class ProgramService {
   constructor(private http: Http, private authService: AuthService) {}
 
-  public get standards() : any[] {
+  public get standards(): any[] {
     return [stronglifts, candito_squat]
   }
 
-  public getProgram(name:string) {
+  public getActiveProgramNames(): Promise<string[]> {
+    return this.getUserInfo()
+      .then((info) => info.user_metadata.active as string[])
+  }
+
+  public getActivePrograms(): Promise<any[]> {
+    return this.getActiveProgramNames()
+      .then((active) => active.map(this.getProgram.bind(this)))
+  }
+
+  public getUserInfo(): Promise<any> {
+    if(!this.authService.isAuthenticated()) {
+      return Promise.reject('Not logged in')
+    }
+    const url = `${environment.apiUrl}/user/info`
+    return this.http.get(url, {headers: this.authHeaders})
+               .toPromise()
+               .then((response) => response.json() as any)
+  }
+
+  public getProgram(name:string): any {
     return this.standards.find((p) => p.name==name)
   }
 
@@ -35,10 +55,7 @@ export class ProgramService {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject(false)
     }
-    const url = `${environment.apiUrl}/user/info`
-    return this.http.get(url, {headers: this.authHeaders})
-               .toPromise()
-               .then((response) => response.json().user_metadata.active as string[])
+    return this.getActiveProgramNames()
                .then((active) => this.containsValue(active, name))
   }
 

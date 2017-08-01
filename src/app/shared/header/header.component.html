@@ -19,11 +19,11 @@
       <li class="nav-item" *ngIf="authService.isAuthenticated()">
         <a class="nav-link" routerLink="/logout">Log Out</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
         <a class="nav-link" routerLink="/lib">Library</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Active Programs</a>
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
+        <a class="nav-link" routerLink="/active">Active Programs</a>
       </li>
     </ul>
   </div>
