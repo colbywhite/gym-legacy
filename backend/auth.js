@@ -83,7 +83,7 @@ const resourceFromMethodArn = (arn) => {
   let newPathParts = []
   newPathParts.push(pathParts[0])  // keep the same api id
   newPathParts.push(pathParts[1])  // keep the same stage
-  newPathParts.push('*')  // accept a HTTP methods
+  newPathParts.push('*')  // accept all HTTP methods
   newPathParts.push('user')  // accept everything on the /user path
   newPathParts.push('*')  // accept everything on the /user path
   const newPath = newPathParts.join('/')
