@@ -8,6 +8,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:PutItem
+        - dynamodb:DeleteItem
       Resource:
         Fn::Join:
         - ':'
@@ -30,30 +31,6 @@ functions:
           method: get
           authorizer: auth
           cors: true
-  activateWorkout:
-    handler: userinfo.post
-    events:
-      - http:
-          path: user/activateWorkout
-          method: post
-          authorizer: auth
-          cors: true
-          request:
-            parameters:
-              querystrings:
-                url: true
-  deactivateWorkout:
-    handler: userinfo.delete
-    events:
-      - http:
-          path: user/deactivateWorkout
-          method: DELETE
-          authorizer: auth
-          cors: true
-          request:
-            parameters:
-              querystrings:
-                url: true
   createActiveProgram:
     handler: activeProgram.create
     events:
@@ -62,6 +39,18 @@ functions:
           method: POST
           authorizer: auth
           cors: true
+  deleteActiveProgram:
+    handler: activeProgram.delete
+    events:
+      - http:
+          path: user/program/{name}
+          method: DELETE
+          authorizer: auth
+          cors: true
+          request:
+            parameters:
+              paths:
+                name: true
   auth:
     handler: auth.authenticate
 resources:
@@ -73,12 +62,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: user_id
             AttributeType: S
-          - AttributeName: start_date
+          - AttributeName: name
             AttributeType: S
         KeySchema:
           - AttributeName: user_id
             KeyType: HASH
-          - AttributeName: start_date
+          - AttributeName: name
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 5
