@@ -6,10 +6,12 @@ import { AuthService} from '../shared/auth.service'
     <gl-header></gl-header>
     <div class="card card-inverse card-success text-xs-center">
       <div class="card-block">
-        <blockquote class="card-blockquote">
-          <p>You've successfully been logged out.</p>
-          <footer>Feel free to <a routerLink="/login">log back in.</a></footer>
-        </blockquote>
+        <p class="card-text">
+          You've successfully been logged out.
+        </p>
+        <p class="card-text">
+          Feel free to <a routerLink="/login">log back in</a>.
+        </p>
       </div>
     </div>
   `

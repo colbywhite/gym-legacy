@@ -14,8 +14,6 @@ export class AuthService {
     scope: 'openid profile'
   })
 
-  profile: any
-
   constructor() {}
 
   public login(): void {
@@ -53,21 +51,5 @@ export class AuthService {
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
-  }
-
-  public getProfile(cb: (err: any, profile: any) => void): void {
-    if(!this.isAuthenticated()){
-      throw new Error('Not logged in');
-    }
-    if(this.profile) {
-      cb({}, this.profile)
-    }
-    const accessToken = localStorage.getItem('access_token');
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if(profile) {
-        this.profile = profile
-      }
-      cb(err, profile)
-    });
   }
 }
