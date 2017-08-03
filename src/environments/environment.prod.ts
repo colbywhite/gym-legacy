@@ -4,6 +4,6 @@ export const environment = {
     clientID: '%CLIENTID%',
     redirectUri: 'http://d1g8look55h14i.cloudfront.net/callback'
   },
-  apiUrl: 'https://keub21khij.execute-api.us-east-1.amazonaws.com/dev',
+  apiUrl: 'https://fwfbngmwge.execute-api.us-east-1.amazonaws.com/dev',
   production: true
 };
