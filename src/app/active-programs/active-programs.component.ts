@@ -11,7 +11,6 @@ export class ActiveProgramsComponent implements OnInit {
   constructor(private programService: ProgramService) { }
 
   ngOnInit() {
-    // TODO don't do this on every init
     this.programService.getActivePrograms()
       .then((programs) => this.programs=programs)
   }
