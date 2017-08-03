@@ -45,8 +45,9 @@ export class ProgramService {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const url = `${environment.apiUrl}/user/activateWorkout?name=${name}`
-    return this.http.post(url, {}, {headers: this.authHeaders})
+    const program = this.getProgram(name)
+    const url = `${environment.apiUrl}/user/program`
+    return this.http.post(url, program, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
   }
@@ -55,7 +56,7 @@ export class ProgramService {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const url = `${environment.apiUrl}/user/deactivateWorkout?name=${name}`
+    const url = `${environment.apiUrl}/user/program/${name}`
     return this.http.delete(url, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)

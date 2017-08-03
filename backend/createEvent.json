@@ -1,0 +1,8 @@
+{
+	"requestContext": {
+		"authorizer": {
+			"principalId": "google-oauth2|118262850533890486994"
+		}
+	},
+	"body": "{\"name\": \"StrongLifts 5x5\",\"source\": \"https://stronglifts.com/5x5#Quick_Overview\",\"unit\": \"pounds\"}"
+}
