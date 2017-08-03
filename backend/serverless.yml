@@ -9,6 +9,8 @@ provider:
       Action:
         - dynamodb:PutItem
         - dynamodb:DeleteItem
+        - dynamodb:GetItem
+        - dynamodb:Query
       Resource:
         Fn::Join:
         - ':'
@@ -51,6 +53,14 @@ functions:
             parameters:
               paths:
                 name: true
+  getActivePrograms:
+    handler: activeProgram.get
+    events:
+      - http:
+          path: user/programs
+          method: GET
+          authorizer: auth
+          cors: true
   auth:
     handler: auth.authenticate
 resources:

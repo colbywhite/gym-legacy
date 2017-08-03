@@ -26,7 +26,7 @@ const createActiveProgram = (userid, start_date, program) => {
     TableName: 'active_programs',
     Item: item
   }
-  console.log('Creating', item)
+  console.log('POST', item)
   // TODO should I check if it already exists?
   return client.putAsync(params).then(() => item)
 }
@@ -39,9 +39,22 @@ const deleteActiveProgram = (userid, name) => {
       name: name
     }
   }
-  console.log('Deleting', params.Key)
+  console.log('DELETE', params.Key)
   return client.deleteAsync(params)
 }
+
+const getActivePrograms = (userid) => {
+  const params = {
+    TableName: 'active_programs',
+    KeyConditionExpression: 'user_id = :user_id',
+    ExpressionAttributeValues: {
+      ':user_id': userid
+    }
+  }
+  console.log('GET', params.ExpressionAttributeValues)
+  return client.queryAsync(params).then((result) => result.Items)
+}
+
 module.exports.create = (event, context, callback) => {
   const successResponse = sendResponse.bind(null, 200, callback)
   const errorResponse = sendResponse.bind(null, 500, callback)
@@ -59,6 +72,15 @@ module.exports.delete = (event, context, callback) => {
   const name = decodeURIComponent(event.pathParameters.name)
   // TODO return No Content
   deleteActiveProgram(user_id, name)
+    .then(successResponse)
+    .catch(errorResponse)
+}
+
+module.exports.get = (event, context, callback) => {
+  const successResponse = sendResponse.bind(null, 200, callback)
+  const errorResponse = sendResponse.bind(null, 500, callback)
+  const user_id = event.requestContext.authorizer.principalId
+  getActivePrograms(user_id)
     .then(successResponse)
     .catch(errorResponse)
 }
