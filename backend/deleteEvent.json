@@ -1,0 +1,10 @@
+{
+	"requestContext": {
+		"authorizer": {
+			"principalId": "google-oauth2|118262850533890486994"
+		}
+	},
+  "pathParameters":{
+    "name": "StrongLifts%205x5"
+  }
+}
