@@ -11,30 +11,29 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProgramService {
+  private _activePrograms: any[] = undefined
+
   constructor(private http: Http, private authService: AuthService) {}
 
   public get standards(): any[] {
     return [stronglifts, candito_squat]
   }
 
-  public getActiveProgramNames(): Promise<string[]> {
-    return this.getUserInfo()
-      .then((info) => info.user_metadata.active as string[])
-  }
-
   public getActivePrograms(): Promise<any[]> {
-    return this.getActiveProgramNames()
-      .then((active) => active.map(this.getProgram.bind(this)))
-  }
-
-  public getUserInfo(): Promise<any> {
+    if(this._activePrograms) {
+      return Promise.resolve(this._activePrograms)
+    }
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const url = `${environment.apiUrl}/user/info`
+    const url = `${environment.apiUrl}/user/programs`
     return this.http.get(url, {headers: this.authHeaders})
                .toPromise()
-               .then((response) => response.json() as any)
+               .then((response) => response.json() as any[])
+               .then((programs) => {
+                 this._activePrograms = programs
+                 return this._activePrograms
+               })
   }
 
   public getProgram(name:string): any {
@@ -50,6 +49,7 @@ export class ProgramService {
     return this.http.post(url, program, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
+               .then(this.clearCacheIfSuccess.bind(this))
   }
 
   public deactivateProgram(name: string): Promise<number> {
@@ -60,25 +60,24 @@ export class ProgramService {
     return this.http.delete(url, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
+               .then(this.clearCacheIfSuccess.bind(this))
+  }
+
+  private clearCacheIfSuccess(status: number): number {
+    if(status===200) {
+      this._activePrograms = undefined
+    }
+    return status
   }
 
   public isProgramActive(name: string): Promise<boolean> {
-    if(!this.authService.isAuthenticated()) {
-      return Promise.reject(false)
-    }
-    return this.getActiveProgramNames()
-               .then((active) => this.containsValue(active, name))
+    return this.getActivePrograms()
+               .then((programs) => programs.find((p) => p.name === name))
+               .then((program) => program !== undefined)
   }
 
   private get authHeaders(): Headers {
     const access_token = localStorage.getItem('access_token')
     return new Headers({'Authorization': `Bearer ${access_token}`});
-  }
-
-  private containsValue(list: string[], value: string): boolean {
-    if (!list || list.length == 0) {
-      return false
-    }
-    return (list.find((el) => el === value)) ? true : false
   }
 }

@@ -30,10 +30,19 @@ export class ProgramInfoComponent implements OnInit {
           .map((week: Day[]) => {
             return week.map((day: Day) => false)
           })
-        // TODO do this once at the lib component and pass it along
-        this.programService.isProgramActive(this.program.name)
-          .then((isActive) => this.active = isActive)
+        this.updateActive()
       })
+  }
+
+  private updateActive() {
+    this.programService.isProgramActive(this.program.name)
+      .then((isActive) => this.active = isActive)
+  }
+
+  private updateIfSuccessful(status: number): void {
+    if(status === 200) {
+      this.updateActive()
+    }
   }
 
   public showLibrary() {
@@ -46,19 +55,11 @@ export class ProgramInfoComponent implements OnInit {
 
   startProgram() {
     this.busy = this.programService.activateProgram(this.program.name)
-    this.busy.then((status) => {
-      if(status == 200) {
-        this.router.navigate(['/active'])
-      }
-    })
+      .then(this.updateIfSuccessful.bind(this))
   }
 
   stopProgram() {
     this.busy = this.programService.deactivateProgram(this.program.name)
-    this.busy.then((status) => {
-      if(status == 200) {
-        this.active = false
-      }
-    })
+      .then(this.updateIfSuccessful.bind(this))
   }
 }
