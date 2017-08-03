@@ -25,14 +25,6 @@ provider:
     AUTH0_BACKEND_CLIENT_ID: ${self:custom.auth0.AUTH0_BACKEND_CLIENT_ID}
     AUTH0_BACKEND_CLIENT_SECRET: ${self:custom.auth0.AUTH0_BACKEND_CLIENT_SECRET}
 functions:
-  userinfo:
-    handler: userinfo.get
-    events:
-      - http:
-          path: user/info
-          method: get
-          authorizer: auth
-          cors: true
   createActiveProgram:
     handler: activeProgram.create
     events:

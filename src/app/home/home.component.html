@@ -6,19 +6,10 @@
       Use a common weight program schema to track your progress in the gym.
     </p>
   </div>
-  <div class="card-block" *ngIf="profile">
+  <div class="card-block" *ngIf="authService.isAuthenticated()">
     <p class="card-text">
-      Start browsing the library {{profile.given_name}} to start your progress.
+      Start browsing the <a routerLink="/lib">library</a> to start your legacy.
     </p>
-    <div
-      class="btn-group mx-auto"
-      role="group">
-      <button
-        routerLink="/lib"
-        class="btn btn-primary">
-        View Library
-      </button>
-    </div>
   </div>
   <h6 class="card-footer">Open Source. No Ads. <span class="text-muted">v0.2.1</span></h6>
 </div>
