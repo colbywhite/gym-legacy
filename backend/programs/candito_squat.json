@@ -1,0 +1,116 @@
+{
+  "name": "Candito 9-Week Squat",
+  "source": "http://www.canditotraininghq.com/free-programs",
+  "unit": "pounds",
+  "workouts": {
+    "W1D1": {
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 3,
+          "load":
+          {
+            "type": "percentage",
+            "percent": 75,
+            "of": "1RM"
+          }
+        }, {
+          "name": "Pin Squat",
+          "sets": 1,
+          "reps": 8,
+          "load": "high"
+        }
+      ]
+    },
+    "W1D2": {
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 3,
+          "load":
+          {
+            "type": "percentage",
+            "percent": 75,
+            "of": "1RM"
+          }
+        }, {
+          "name": "Pause Squat",
+          "sets": 1,
+          "reps": 8,
+          "load": "high"
+        }
+      ]
+    },
+    "W1D3": {
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 3,
+          "load":
+          {
+            "type": "percentage",
+            "percent": 75,
+            "of": "1RM"
+          }
+        }, {
+          "name": "Pin Squat",
+          "sets": 1,
+          "reps": 6,
+          "load": "high"
+        }
+      ]
+    },
+    "W1D4": {
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 3,
+          "load":
+          {
+            "type": "percentage",
+            "percent": 75,
+            "of": "1RM"
+          }
+        }, {
+          "name": "Pin Squat",
+          "sets": 1,
+          "reps": 3,
+          "load": "high"
+        }
+      ]
+    },
+    "W1D5": {
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": 3,
+          "load":
+          {
+            "type": "percentage",
+            "percent": 75,
+            "of": "1RM"
+          }
+        }, {
+          "name": "Pause Squat",
+          "sets": 1,
+          "reps": 3,
+          "load": "high"
+        }
+      ]
+    }
+  },
+  "schedule":
+  {
+    "type": "5-2",
+    "order": ["W1D1", "W1D2", "W1D3", "W1D4", "W1D5"],
+    "duration": {
+      "unit": "weeks",
+      "value": 9
+    }
+  }
+}

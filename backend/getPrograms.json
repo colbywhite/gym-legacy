@@ -1,0 +1,7 @@
+{
+	"requestContext": {
+		"authorizer": {
+			"principalId": "google-oauth2|118262850533890486994"
+		}
+	}
+}

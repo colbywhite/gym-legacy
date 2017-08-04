@@ -1,0 +1,88 @@
+{
+  "name": "StrongLifts 5x5",
+  "source": "https://stronglifts.com/5x5#Quick_Overview",
+  "unit": "pounds",
+  "workouts": {
+    "A": {
+      "name": "A Day",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 5,
+          "reps": 5,
+          "load":
+          {
+            "type": "incremental",
+            "increment": 5,
+            "from": "lastSuccess"
+          }
+        },
+        {
+          "name": "Bench Press",
+          "sets": 5,
+          "reps": 5,
+          "load":
+          {
+            "type": "incremental",
+            "increment": 5,
+            "from": "lastSuccess"
+          }
+        },
+        {
+          "name": "Barbell Row",
+          "sets": 5,
+          "reps": 5,
+          "load":
+          {
+            "type": "incremental",
+            "increment": 5,
+            "from": "lastSuccess"
+          }
+        }
+      ]
+    },
+    "B": {
+      "name": "B Day",
+      "exercises": [
+      {
+        "name": "Squat",
+        "sets": 5,
+        "reps": 5,
+        "load":
+        {
+          "type": "incremental",
+          "increment": 5,
+          "from": "lastSuccess"
+        }
+      },
+      {
+        "name": "Overhead Press",
+        "sets": 5,
+        "reps": 5,
+        "load":
+        {
+          "type": "incremental",
+          "increment": 5,
+          "from": "lastSuccess"
+        }
+      },
+      {
+        "name": "Deadlift",
+        "sets": 1,
+        "reps": 5,
+        "load":
+        {
+          "type": "incremental",
+          "increment": 10,
+          "from": "lastSuccess"
+        }
+      }]
+    }
+  },
+  "schedule":
+  {
+    "type": "MWF",
+    "order": ["A", "B"],
+    "duration": "optional indefinite"
+  }
+}

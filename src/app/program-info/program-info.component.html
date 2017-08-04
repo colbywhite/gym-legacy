@@ -8,13 +8,13 @@
       Back to Library
     </button>
 
-    <button *ngIf="active === false"
+    <button *ngIf="!program.start_date"
         class="btn btn-secondary btn-sm"
         (click)="startProgram()">
       Start Program
     </button>
 
-    <button *ngIf="active === true"
+    <button *ngIf="program.start_date"
         class="btn btn-secondary btn-sm"
         (click)="stopProgram()">
       Stop Program

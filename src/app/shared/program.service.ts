@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ProgramService {
   private _activePrograms: any[] = undefined
+  private _activeProgramsPromise: Promise<any[]> = undefined
 
   constructor(private http: Http, private authService: AuthService) {}
 
@@ -20,6 +21,9 @@ export class ProgramService {
   }
 
   public getActivePrograms(): Promise<any[]> {
+    if(this._activeProgramsPromise) {
+      return this._activeProgramsPromise
+    }
     if(this._activePrograms) {
       return Promise.resolve(this._activePrograms)
     }
@@ -27,24 +31,25 @@ export class ProgramService {
       return Promise.reject('Not logged in')
     }
     const url = `${environment.apiUrl}/user/programs`
-    return this.http.get(url, {headers: this.authHeaders})
+    this._activeProgramsPromise = this.http.get(url, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.json() as any[])
                .then((programs) => {
                  this._activePrograms = programs
                  return this._activePrograms
                })
+    return this._activeProgramsPromise
   }
 
-  public getProgram(name:string): any {
-    return this.standards.find((p) => p.name==name)
+  public getProgram(name:string): Promise<any> {
+    return this.getActivePrograms()
+      .then((programs) => programs.find((p) => p.name===name))
   }
 
-  public activateProgram(name: string): Promise<number> {
+  public activateProgram(program: any): Promise<number> {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const program = this.getProgram(name)
     const url = `${environment.apiUrl}/user/program`
     return this.http.post(url, program, {headers: this.authHeaders})
                .toPromise()
@@ -66,14 +71,9 @@ export class ProgramService {
   private clearCacheIfSuccess(status: number): number {
     if(status===200) {
       this._activePrograms = undefined
+      this._activeProgramsPromise = undefined
     }
     return status
-  }
-
-  public isProgramActive(name: string): Promise<boolean> {
-    return this.getActivePrograms()
-               .then((programs) => programs.find((p) => p.name === name))
-               .then((program) => program !== undefined)
   }
 
   private get authHeaders(): Headers {

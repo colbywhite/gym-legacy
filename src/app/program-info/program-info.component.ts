@@ -11,11 +11,10 @@ import {schedule_calculator} from 'weight-program-schema'
   styleUrls: ['./program-info.component.css']
 })
 export class ProgramInfoComponent implements OnInit {
-  public busy: Promise<number>
+  public busy: Promise<any>
   public program: any
   public schedule: Day[][]
   public states: boolean[][]
-  public active: boolean
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -24,25 +23,20 @@ export class ProgramInfoComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap
       .subscribe((params: ParamMap) => {
-        this.program = this.programService.getProgram(params.get('name'))
+        this.init(params.get('name'))
+      })
+  }
+
+  init(name: string): Promise<void> {
+    return this.programService.getProgram(name)
+      .then((program) => {
+        this.program = program
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
         this.states = this.schedule
           .map((week: Day[]) => {
             return week.map((day: Day) => false)
           })
-        this.updateActive()
       })
-  }
-
-  private updateActive() {
-    this.programService.isProgramActive(this.program.name)
-      .then((isActive) => this.active = isActive)
-  }
-
-  private updateIfSuccessful(status: number): void {
-    if(status === 200) {
-      this.updateActive()
-    }
   }
 
   public showLibrary() {
@@ -54,12 +48,12 @@ export class ProgramInfoComponent implements OnInit {
   }
 
   startProgram() {
-    this.busy = this.programService.activateProgram(this.program.name)
-      .then(this.updateIfSuccessful.bind(this))
+    this.busy = this.programService.activateProgram(this.program)
+      .then(() => this.init(this.program.name))
   }
 
   stopProgram() {
     this.busy = this.programService.deactivateProgram(this.program.name)
-      .then(this.updateIfSuccessful.bind(this))
+      .then(() => this.init(this.program.name))
   }
 }
