@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProgramService } from '../shared/program.service'
 
@@ -11,7 +11,11 @@ export class ProgramLibraryComponent {
   public programs: any[]
 
   constructor(private router: Router, private programService: ProgramService) {
-    this.programs = programService.standards
+  }
+
+  ngOnInit() {
+    this.programService.getActivePrograms()
+      .then((programs) => this.programs = programs)
   }
 
   public showProgram(program: any) {

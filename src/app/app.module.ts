@@ -16,7 +16,6 @@ import { HomeComponent } from './home/home.component'
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared/auth-guard.service';
 import { HttpModule }    from '@angular/http';
-import { ActiveProgramsComponent } from './active-programs/active-programs.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { ActiveProgramsComponent } from './active-programs/active-programs.compo
     ProgramLibraryComponent,
     ProgramInfoComponent,
     RestDayComponent,
-    WorkoutDayComponent,
-    ActiveProgramsComponent
+    WorkoutDayComponent
   ],
   imports: [
     AuthModule,

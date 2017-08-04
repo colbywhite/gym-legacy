@@ -1,6 +1,9 @@
 const AWS = require('aws-sdk');
 const BbPromise = require('bluebird');
 const client = BbPromise.promisifyAll(new AWS.DynamoDB.DocumentClient());
+const stronglifts = require('./programs/stronglifts');
+const candito_squat = require('./programs/candito_squat');
+const standards = [stronglifts, candito_squat]
 
 const HEADERS = {
   "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
@@ -81,6 +84,16 @@ module.exports.get = (event, context, callback) => {
   const errorResponse = sendResponse.bind(null, 500, callback)
   const user_id = event.requestContext.authorizer.principalId
   getActivePrograms(user_id)
+    .then((actives) => {
+      const start_dates = actives.reduce((result, program) => {
+        result[program.name] = program.start_date
+        return result
+      }, {})
+      return standards.map((program) => {
+        program.start_date = start_dates[program.name]
+        return program
+      })
+    })
     .then(successResponse)
     .catch(errorResponse)
 }
