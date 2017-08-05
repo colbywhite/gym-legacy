@@ -33,9 +33,7 @@ export class ProgramInfoComponent implements OnInit {
         this.program = program
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
         this.states = this.schedule
-          .map((week: Day[]) => {
-            return week.map((day: Day) => false)
-          })
+          .map((week: Day[]) => week.map((day: Day) => false))
       })
   }
 

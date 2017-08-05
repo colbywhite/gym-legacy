@@ -1,8 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { ProgramLibraryComponent } from './program-lib.component';
 import { ProgramService } from '../shared/program.service'
+import { MockProgramService } from '../shared/mock-program.service';
 import { HeaderComponent } from '../shared/header/header.component';
 import { MockHeader } from '../shared/header/mock-header.override';
 import { AppModule } from '../app.module';
@@ -11,30 +12,32 @@ import * as _stronglifts from '../shared/programs/stronglifts.json'
 const firstProgram: any = _stronglifts
 
 describe('ProgramLibraryComponent', () => {
-  let fixture
-  let programList
+  let fixture: ComponentFixture<ProgramLibraryComponent>
+  let programList: ProgramLibraryComponent
   let element
 
   const mockRouter = {
     navigate: (route) => {}
   }
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.configureTestingModule({
       imports: [AppModule],
       providers: [
         {provide: Router, useValue: mockRouter},
-        ProgramService
+        {provide: ProgramService, useClass: MockProgramService}
       ]
     })
-    .overrideComponent(HeaderComponent, MockHeader)
-    .createComponent(ProgramLibraryComponent)
-    programList = fixture.debugElement.componentInstance;
-    element = fixture.debugElement.nativeElement
-  })
+      .overrideComponent(HeaderComponent, MockHeader)
+      .createComponent(ProgramLibraryComponent)
+    programList = fixture.componentInstance
+    programList.ngOnInit()
+    tick()
+    element = fixture.nativeElement
+  }))
 
   it('should compile', () => {
-    expect(programList).toBeTruthy();
+    expect(programList).toBeTruthy()
   })
 
   describe('when rendered', () => {
@@ -47,7 +50,8 @@ describe('ProgramLibraryComponent', () => {
     })
 
     it('should display default programs from WPS', () => {
-      expect(element.querySelector('div.list-group-item').textContent.trim()).toBe(firstProgram.name);
+      const textContent = element.querySelector('div.list-group-item').textContent.trim()
+      expect(textContent.startsWith(firstProgram.name)).toBeTruthy()
     })
 
     it('should route to program info when program is clicked', inject([Router], (router: Router) => {

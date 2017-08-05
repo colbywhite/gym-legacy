@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import * as _stronglifts from '../shared/programs/stronglifts.json'
@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { ProgramInfoComponent } from './program-info.component';
+import { MockProgramService } from '../shared/mock-program.service';
+import { ProgramService } from '../shared/program.service';
 import { HeaderComponent } from '../shared/header/header.component';
 import { MockHeader } from '../shared/header/mock-header.override';
 import { AppModule } from '../app.module';
@@ -16,30 +18,31 @@ const strongliftsRoute = {
 }
 
 describe('ProgramInfoComponent', () => {
-  let fixture
-  let info
+  let fixture: ComponentFixture<ProgramInfoComponent>
+  let info: ProgramInfoComponent
   let element: Element
 
   const mockRouter = {
     navigate: (route) => {}
   }
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.configureTestingModule({
       imports: [AppModule],
       providers: [
         {provide: ActivatedRoute, useValue: strongliftsRoute},
         {provide: Router, useValue: mockRouter},
+        {provide: ProgramService, useClass: MockProgramService},
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
-    .overrideComponent(HeaderComponent, MockHeader)
-    .createComponent(ProgramInfoComponent);
-    fixture.autoDetectChanges()
-    info = fixture.debugElement.componentInstance
+      .overrideComponent(HeaderComponent, MockHeader)
+      .createComponent(ProgramInfoComponent);
+    info = fixture.componentInstance
     info.ngOnInit()
-    element = fixture.debugElement.nativeElement
-  })
+    tick()
+    element = fixture.nativeElement
+  }))
 
   it('should compile', () => {
     expect(info).toBeTruthy();
