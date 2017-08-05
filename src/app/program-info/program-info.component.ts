@@ -15,6 +15,7 @@ export class ProgramInfoComponent implements OnInit {
   public program: any
   public schedule: Day[][]
   public states: boolean[][]
+  public currentWeek: number = 1
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class ProgramInfoComponent implements OnInit {
         this.schedule = spliceIntoChunks(schedule_calculator(this.program), 7) as Day[][]
         this.states = this.schedule
           .map((week: Day[]) => week.map((day: Day) => false))
+        this.currentWeek = 1
       })
   }
 
@@ -53,5 +55,9 @@ export class ProgramInfoComponent implements OnInit {
   stopProgram() {
     this.busy = this.programService.deactivateProgram(this.program.name)
       .then(() => this.init(this.program.name))
+  }
+
+  onSlide(event:any) {
+    this.currentWeek = +event.current.split(' ')[1]
   }
 }

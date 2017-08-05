@@ -1,41 +1,47 @@
 <div [ngBusy]="busy">
   <gl-header></gl-header>
-  <div class="btn-toolbar justify-content-between">
-    <button type="button"
-        class="btn btn-secondary btn-sm"
-        (click)="showLibrary()">
-      <i class="fa fa-angle-left" aria-hidden="true"></i>
-      Back to Library
-    </button>
-
-    <button *ngIf="!program.start_date"
-        class="btn btn-secondary btn-sm"
-        (click)="startProgram()">
-      Start Program
-    </button>
-
-    <button *ngIf="program.start_date"
-        class="btn btn-secondary btn-sm"
-        (click)="stopProgram()">
-      Stop Program
-    </button>
+  <div *ngIf="!program">
+    Loading
   </div>
-  <h3>{{program.name}}</h3>
-  <ngb-carousel [interval]="false">
-    <ng-template ngbSlide *ngFor="let week of schedule; let i=index">
-        <div class="list-group">
-          <div
-            class="list-group-item list-group-item-action"
-            *ngFor="let day of week; let j=index"
-            (click)="toggle(i,j)">
-            <gl-rest-day *ngIf="day.rest"></gl-rest-day>
-            <gl-workout-day *ngIf="!day.rest"
-              [name]="day.name || 'Day ' + ((7*i) + j + 1)"
-              [exercises]="day.exercises"
-              [expanded]="states[i][j]">
-            </gl-workout-day>
+  <div *ngIf="program">
+    <div class="btn-toolbar justify-content-between">
+      <button type="button"
+          class="btn btn-secondary btn-sm"
+          (click)="showLibrary()">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        Back to Library
+      </button>
+
+      <button *ngIf="!program.start_date"
+          class="btn btn-secondary btn-sm"
+          (click)="startProgram()">
+        Start Program
+      </button>
+
+      <button *ngIf="program.start_date"
+          class="btn btn-secondary btn-sm"
+          (click)="stopProgram()">
+        Stop Program
+      </button>
+    </div>
+    <h3>{{program.name}}</h3>
+    <h5>Week {{currentWeek}}</h5>
+    <ngb-carousel [interval]="false" (slide)="onSlide($event)">
+      <ng-template ngbSlide *ngFor="let week of schedule; let i=index" [id]="'Week '+ (i+1)">
+          <div class="list-group">
+            <div
+              class="list-group-item list-group-item-action"
+              *ngFor="let day of week; let j=index"
+              (click)="toggle(i,j)">
+              <gl-rest-day *ngIf="day.rest"></gl-rest-day>
+              <gl-workout-day *ngIf="!day.rest"
+                [name]="day.name || 'Day ' + ((7*i) + j + 1)"
+                [exercises]="day.exercises"
+                [expanded]="states[i][j]">
+              </gl-workout-day>
+            </div>
           </div>
-        </div>
-    </ng-template>
-  </ngb-carousel>
+      </ng-template>
+    </ngb-carousel>
+  </div>
 </div>
