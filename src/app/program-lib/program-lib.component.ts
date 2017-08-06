@@ -14,7 +14,7 @@ export class ProgramLibraryComponent {
   }
 
   ngOnInit() {
-    this.programService.getActivePrograms()
+    this.programService.getPrograms()
       .then((programs) => this.programs = programs)
   }
 

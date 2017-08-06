@@ -25,7 +25,7 @@ export class MockProgramService extends ProgramService {
     }
   }
 
-  public getActivePrograms(): Promise<any[]> {
+  public getPrograms(): Promise<any[]> {
     return Promise.resolve([this._stronglifts, this._candito])
   }
 }

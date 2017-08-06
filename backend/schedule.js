@@ -1,14 +1,14 @@
-const AWS = require('aws-sdk');
-const BbPromise = require('bluebird');
-const client = BbPromise.promisifyAll(new AWS.DynamoDB.DocumentClient());
+const AWS = require('aws-sdk')
+const BbPromise = require('bluebird')
+const client = BbPromise.promisifyAll(new AWS.DynamoDB.DocumentClient())
 const stronglifts = require('./programs/stronglifts');
 const candito_squat = require('./programs/candito_squat');
-const standards = [stronglifts, candito_squat]
 
 const HEADERS = {
   "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
   "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
 }
+const SCHEDULE_TABLE = 'schedules'
 
 const sendResponse = (status, callback, body) => {
   const response = {
@@ -19,14 +19,15 @@ const sendResponse = (status, callback, body) => {
   callback(null, response)
 }
 
-const createActiveProgram = (userid, start_date, program) => {
-  const item = {
+const createSchedule = (userid, name, start_date, schedule) => {
+  var item = {
     user_id: userid,
-    start_date: start_date.toISOString()
+    start_date: start_date.toISOString(),
+    name: name,
+    schedule: schedule
   }
-  Object.assign(item, program)
   const params = {
-    TableName: 'active_programs',
+    TableName: SCHEDULE_TABLE,
     Item: item
   }
   console.log('POST', item)
@@ -34,9 +35,9 @@ const createActiveProgram = (userid, start_date, program) => {
   return client.putAsync(params).then(() => item)
 }
 
-const deleteActiveProgram = (userid, name) => {
+const deleteSchedule = (userid, name) => {
   const params = {
-    TableName: 'active_programs',
+    TableName: SCHEDULE_TABLE,
     Key: {
       user_id: userid,
       name: name
@@ -46,9 +47,9 @@ const deleteActiveProgram = (userid, name) => {
   return client.deleteAsync(params)
 }
 
-const getActivePrograms = (userid) => {
+const getSchedule = (userid) => {
   const params = {
-    TableName: 'active_programs',
+    TableName: SCHEDULE_TABLE,
     KeyConditionExpression: 'user_id = :user_id',
     ExpressionAttributeValues: {
       ':user_id': userid
@@ -58,12 +59,13 @@ const getActivePrograms = (userid) => {
   return client.queryAsync(params).then((result) => result.Items)
 }
 
-module.exports.create = (event, context, callback) => {
+module.exports.post = (event, context, callback) => {
   const successResponse = sendResponse.bind(null, 200, callback)
   const errorResponse = sendResponse.bind(null, 500, callback)
   const user_id = event.requestContext.authorizer.principalId
+  const name = decodeURIComponent(event.pathParameters.name)
   const body = JSON.parse(event.body)
-  createActiveProgram(user_id, new Date(), body)
+  createSchedule(user_id, name, new Date(), body)
     .then(successResponse)
     .catch(errorResponse)
 }
@@ -74,7 +76,7 @@ module.exports.delete = (event, context, callback) => {
   const user_id = event.requestContext.authorizer.principalId
   const name = decodeURIComponent(event.pathParameters.name)
   // TODO return No Content
-  deleteActiveProgram(user_id, name)
+  deleteSchedule(user_id, name)
     .then(successResponse)
     .catch(errorResponse)
 }
@@ -83,17 +85,8 @@ module.exports.get = (event, context, callback) => {
   const successResponse = sendResponse.bind(null, 200, callback)
   const errorResponse = sendResponse.bind(null, 500, callback)
   const user_id = event.requestContext.authorizer.principalId
-  getActivePrograms(user_id)
-    .then((actives) => {
-      const start_dates = actives.reduce((result, program) => {
-        result[program.name] = program.start_date
-        return result
-      }, {})
-      return standards.map((program) => {
-        program.start_date = start_dates[program.name]
-        return program
-      })
-    })
+  const name = decodeURIComponent(event.pathParameters.name)
+  getSchedule(user_id)
     .then(successResponse)
     .catch(errorResponse)
 }
