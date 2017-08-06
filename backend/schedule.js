@@ -47,16 +47,16 @@ const deleteSchedule = (userid, name) => {
   return client.deleteAsync(params)
 }
 
-const getSchedule = (userid) => {
+const getSchedule = (userid, name) => {
   const params = {
     TableName: SCHEDULE_TABLE,
-    KeyConditionExpression: 'user_id = :user_id',
-    ExpressionAttributeValues: {
-      ':user_id': userid
+    Key: {
+      user_id: userid,
+      name: name
     }
   }
-  console.log('GET', params.ExpressionAttributeValues)
-  return client.queryAsync(params).then((result) => result.Items)
+  console.log('GET', params.Key)
+  return client.getAsync(params).then((result) => result.Item)
 }
 
 module.exports.post = (event, context, callback) => {
@@ -86,7 +86,7 @@ module.exports.get = (event, context, callback) => {
   const errorResponse = sendResponse.bind(null, 500, callback)
   const user_id = event.requestContext.authorizer.principalId
   const name = decodeURIComponent(event.pathParameters.name)
-  getSchedule(user_id)
+  getSchedule(user_id, name)
     .then(successResponse)
     .catch(errorResponse)
 }

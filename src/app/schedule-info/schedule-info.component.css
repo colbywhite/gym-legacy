@@ -1,0 +1,12 @@
+ngb-carousel {
+  outline: none;
+}
+
+ngb-carousel .list-group {
+  width: 75%;
+  margin: auto;
+}
+
+h3 {
+  margin-top: 10px;
+}
