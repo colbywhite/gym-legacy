@@ -48,12 +48,12 @@ export class ProgramInfoComponent implements OnInit {
   }
 
   startProgram() {
-    this.busy = this.programService.activateProgram(this.program)
+    this.busy = this.programService.startProgram(this.program.name, this.schedule)
       .then(() => this.init(this.program.name))
   }
 
   stopProgram() {
-    this.busy = this.programService.deactivateProgram(this.program.name)
+    this.busy = this.programService.stopProgram(this.program.name)
       .then(() => this.init(this.program.name))
   }
 

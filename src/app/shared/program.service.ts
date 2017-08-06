@@ -11,57 +11,53 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProgramService {
-  private _activePrograms: any[] = undefined
-  private _activeProgramsPromise: Promise<any[]> = undefined
+  private _programs: any[] = undefined
+  private _programsPromise: Promise<any[]> = undefined
 
   constructor(private http: Http, private authService: AuthService) {}
 
-  public get standards(): any[] {
-    return [stronglifts, candito_squat]
-  }
-
-  public getActivePrograms(): Promise<any[]> {
-    if(this._activeProgramsPromise) {
-      return this._activeProgramsPromise
+  public getPrograms(): Promise<any[]> {
+    if(this._programsPromise) {
+      return this._programsPromise
     }
-    if(this._activePrograms) {
-      return Promise.resolve(this._activePrograms)
+    if(this._programs) {
+      return Promise.resolve(this._programs)
     }
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
     const url = `${environment.apiUrl}/user/programs`
-    this._activeProgramsPromise = this.http.get(url, {headers: this.authHeaders})
+    this._programsPromise = this.http.get(url, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.json() as any[])
                .then((programs) => {
-                 this._activePrograms = programs
-                 return this._activePrograms
+                 this._programs = programs
+                 return this._programs
                })
-    return this._activeProgramsPromise
+    return this._programsPromise
   }
 
   public getProgram(name:string): Promise<any> {
-    return this.getActivePrograms()
+    return this.getPrograms()
       .then((programs) => programs.find((p) => p.name===name))
   }
 
-  public activateProgram(program: any): Promise<number> {
+  public startProgram(name: string, schedule: any): Promise<number> {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const url = `${environment.apiUrl}/user/program`
-    return this.http.post(url, program, {headers: this.authHeaders})
+    const url = `${environment.apiUrl}/user/schedule/${name}`
+    return this.http.post(url, schedule, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
                .then(this.clearCacheIfSuccess.bind(this))
   }
 
-  public deactivateProgram(name: string): Promise<number> {
+  public stopProgram(name: string): Promise<number> {
     if(!this.authService.isAuthenticated()) {
       return Promise.reject('Not logged in')
     }
-    const url = `${environment.apiUrl}/user/program/${name}`
+    const url = `${environment.apiUrl}/user/schedule/${name}`
     return this.http.delete(url, {headers: this.authHeaders})
                .toPromise()
                .then((response) => response.status)
@@ -70,8 +66,8 @@ export class ProgramService {
 
   private clearCacheIfSuccess(status: number): number {
     if(status===200) {
-      this._activePrograms = undefined
-      this._activeProgramsPromise = undefined
+      this._programs = undefined
+      this._programsPromise = undefined
     }
     return status
   }
