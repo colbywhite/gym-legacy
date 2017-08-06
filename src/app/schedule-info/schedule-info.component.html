@@ -1,9 +1,6 @@
-<div [ngBusy]="busy">
+<div [ngBusy]="initiliazing">
   <gl-header></gl-header>
-  <div *ngIf="!program">
-    Loading
-  </div>
-  <div *ngIf="program">
+  <div *ngIf="scheduleInfo">
     <div class="btn-toolbar justify-content-between">
       <button type="button"
           class="btn btn-secondary btn-sm"
@@ -13,14 +10,14 @@
       </button>
 
       <button class="btn btn-secondary btn-sm"
-          (click)="startProgram()">
-        Start Program
+          (click)="stopProgram()">
+        Stop Program
       </button>
     </div>
-    <h3>{{program.name}}</h3>
-    <h5>Week {{currentWeek}}</h5>
+    <h3>{{scheduleInfo.name}}</h3>
+    <h5>{{week_start | date:'EEE MMM d'}} - {{week_end | date:'EEE MMM d'}}</h5>
     <ngb-carousel [interval]="false" (slide)="onSlide($event)">
-      <ng-template ngbSlide *ngFor="let week of schedule; let i=index" [id]="'Week '+ (i+1)">
+      <ng-template ngbSlide *ngFor="let week of scheduleInfo.schedule; let i=index" [id]="'Week '+ i">
           <div class="list-group">
             <div
               class="list-group-item list-group-item-action"

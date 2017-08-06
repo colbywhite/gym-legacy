@@ -39,7 +39,7 @@ export class ProgramInfoComponent implements OnInit {
       })
   }
 
-  public showLibrary() {
+  showLibrary() {
     this.router.navigate(['/lib'])
   }
 
@@ -49,12 +49,7 @@ export class ProgramInfoComponent implements OnInit {
 
   startProgram() {
     this.busy = this.programService.startProgram(this.program.name, this.schedule)
-      .then(() => this.init(this.program.name))
-  }
-
-  stopProgram() {
-    this.busy = this.programService.stopProgram(this.program.name)
-      .then(() => this.init(this.program.name))
+      .then(() => this.router.navigate(['/schedule', this.program.name]))
   }
 
   onSlide(event:any) {

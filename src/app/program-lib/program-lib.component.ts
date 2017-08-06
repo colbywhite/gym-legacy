@@ -19,6 +19,10 @@ export class ProgramLibraryComponent {
   }
 
   public showProgram(program: any) {
-    this.router.navigate(['/program', program.name])
+    if(program.start_date) {
+      this.router.navigate(['/schedule', program.name])
+    } else {
+      this.router.navigate(['/program', program.name])
+    }
   }
 }

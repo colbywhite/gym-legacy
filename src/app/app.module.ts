@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component'
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './shared/auth-guard.service';
 import { HttpModule }    from '@angular/http';
+import { ScheduleInfoComponent } from './schedule-info/schedule-info.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpModule }    from '@angular/http';
     ProgramLibraryComponent,
     ProgramInfoComponent,
     RestDayComponent,
-    WorkoutDayComponent
+    WorkoutDayComponent,
+    ScheduleInfoComponent
   ],
   imports: [
     AuthModule,

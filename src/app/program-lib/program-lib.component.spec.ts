@@ -57,7 +57,7 @@ describe('ProgramLibraryComponent', () => {
     it('should route to program info when program is clicked', inject([Router], (router: Router) => {
       spyOn(router, 'navigate')
       element.querySelector('div.list-group-item').click()
-      expect(router.navigate).toHaveBeenCalledWith(['/program', firstProgram.name]);
+      expect(router.navigate).toHaveBeenCalledWith(['/schedule', firstProgram.name]);
     }))
   })
 })

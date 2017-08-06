@@ -64,6 +64,15 @@ export class ProgramService {
                .then(this.clearCacheIfSuccess.bind(this))
   }
 
+  public getSchedule(name: string): Promise<any> {
+    if(!this.authService.isAuthenticated()) {
+      return Promise.reject('Not logged in')
+    }
+    const url = `${environment.apiUrl}/user/schedule/${name}`
+    return this.http.get(url, {headers: this.authHeaders})
+               .toPromise()
+               .then((response) => response.json() as any)
+  }
   private clearCacheIfSuccess(status: number): number {
     if(status===200) {
       this._programs = undefined
